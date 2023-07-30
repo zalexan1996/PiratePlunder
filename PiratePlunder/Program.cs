@@ -1,3 +1,3 @@
 ﻿
-using var game = new PiratePlunder.Game1();
+using var game = new PiratePlunder.PPGame();
 game.Run();

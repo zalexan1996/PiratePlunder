@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace PiratePlunder;
 
-public class Game1 : Game
+public class PPGame : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -12,7 +12,7 @@ public class Game1 : Game
     private Vector2 _shipLocation = new Vector2(200, 200);
     private Texture2D _hull, _sail, _cannon;
     
-    public Game1()
+    public PPGame()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
