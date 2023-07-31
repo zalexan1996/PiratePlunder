@@ -11,6 +11,7 @@ public class Ship : DrawableGameComponent
     public Ship(Vector2 location, Game game) : base(game)
     {
         _location = location;
+        game.GetLogger().Verbose("Ship constructed at '{location}'", location);
     }
 
     protected override void LoadContent()
@@ -20,6 +21,7 @@ public class Ship : DrawableGameComponent
         _cannon = Game.Content.Load<Texture2D>("Ship parts/cannon");
 
         base.LoadContent();
+        Game.GetLogger().Verbose("Ship content loaded.");
     }
 
     public override void Draw(GameTime gameTime)
