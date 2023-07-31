@@ -22,12 +22,13 @@ public class Program
 
     public void Start()
     {
-        using var game = new PPGame(ConfigureLogger());
+        ConfigureLogger();
+        using var game = new PPGame();
 
         game.Run();
     }
 
-    protected ILogger ConfigureLogger()
+    protected void ConfigureLogger()
     {
         var loggerConfig = new LoggerConfiguration()
             .WriteTo.Debug()
@@ -43,9 +44,8 @@ public class Program
             loggerConfig.MinimumLevel.Warning();
         }
         
-        var logger = loggerConfig.CreateLogger();
+        Log.Logger = loggerConfig.CreateLogger();
 
-        logger.Information("Logger configured.");
-        return logger;
+        Log.Logger.Information("Logger configured.");
     }
 }

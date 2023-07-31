@@ -10,24 +10,22 @@ public class PPGame : Game
 {
     private GraphicsDeviceManager _graphics;
 
-    public PPGame(ILogger logger)
+    public PPGame()
     {
-        Services.AddService<ILogger>(logger);
-        
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         Components.Add(new Ship(new Vector2(200, 200), this));
 
 
-        logger.Verbose($"{nameof(PPGame)} constructed");
+        Log.Logger.Verbose($"{nameof(PPGame)} constructed");
     }
 
     protected override void Initialize()
     {
         base.Initialize();
 
-        this.GetLogger().Verbose($"{nameof(PPGame)} initialized");
+        Log.Logger.Verbose($"{nameof(PPGame)} initialized");
     }
 
     protected override void LoadContent()
@@ -35,8 +33,7 @@ public class PPGame : Game
         Services.AddService<SpriteBatch>(new SpriteBatch(GraphicsDevice));
         
         base.LoadContent();
-
-        this.GetLogger().Verbose($"{nameof(PPGame)} content loaded");
+        Log.Logger.Verbose($"{nameof(PPGame)} content loaded");
     }
 
     protected override void Update(GameTime gameTime)
