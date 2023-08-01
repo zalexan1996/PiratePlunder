@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using PP.Engine;
+using PP.Engine.Core;
+using PP.GameStates;
 using Serilog;
 
 namespace PiratePlunder;
@@ -9,15 +10,17 @@ namespace PiratePlunder;
 public class PPGame : Game
 {
     private GraphicsDeviceManager _graphics;
-
+    public GameState ActiveGameState { get; set; }
+    protected SpriteBatch SpriteBatch => this.GetSpriteBatch();
     public PPGame()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        Components.Add(new Ship(new Vector2(200, 200), this));
-
-
+        ActiveGameState = new MainMenuState(this);
+        ActiveGameState.StateProgressed += OnStateProgressed;
+        Components.Add(ActiveGameState);
+        
         Log.Logger.Verbose($"{nameof(PPGame)} constructed");
     }
 
@@ -47,11 +50,17 @@ public class PPGame : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-        var spriteBatch = this.GetSpriteBatch();
-        spriteBatch.Begin(blendState: BlendState.AlphaBlend);
+        SpriteBatch.Begin(blendState: BlendState.AlphaBlend);
 
         base.Draw(gameTime);
 
-        spriteBatch.End();
+        SpriteBatch.End();
+    }
+
+    protected void OnStateProgressed(GameState oldState, GameState newState)
+    {
+        Components.Remove(oldState);
+        Components.Add(newState);
+        newState.StateProgressed += OnStateProgressed;
     }
 }
