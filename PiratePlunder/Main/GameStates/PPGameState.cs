@@ -1,23 +1,43 @@
 using Microsoft.Xna.Framework;
-using PP.Engine;
-using PP.Engine.Core;
+using PiratePlunder.Engine.Core;
 
 namespace PP.GameStates;
 
 public class PPGameState : GameState
 {
-    public PPGameState(Game game) : base(game)
+    public PPGameState()
     {
-        Components.Add(new Ship(new Vector2(200, 200), game));
+
     }
 
-    public override void Draw(GameTime gameTime)
+    public override void Draw()
     {
-        base.Draw(gameTime);
+        throw new System.NotImplementedException();
     }
 
-    public override void Update(GameTime gameTime)
+    public override void HandleInput()
     {
-        base.Update(gameTime);
+        throw new System.NotImplementedException();
+    }
+
+    public override void Initialize()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void LoadContent()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void UnloadContent()
+    {
+        throw new System.NotImplementedException();
+    }
+
+
+    public override void Update()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using PiratePlunder.Engine.Core;
+using PP.GameStates;
 using Serilog;
 
 namespace PiratePlunder;
@@ -23,7 +25,7 @@ public class Program
     public void Start()
     {
         ConfigureLogger();
-        using var game = new PPGame();
+        using var game = new PPGame(new PPGameState());
 
         game.Run();
     }
