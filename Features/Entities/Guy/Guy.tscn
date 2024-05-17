@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://cpkvubti4xyqk"]
+
+[ext_resource type="Texture2D" uid="uid://cf40fb6yxe4ey" path="res://Assets/guy.png" id="1_a6yql"]
+[ext_resource type="Script" path="res://Features/Entities/Guy/Guy.cs" id="1_oditk"]
+[ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="4_nuuol"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ou2t5"]
+atlas = ExtResource("1_a6yql")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hxog"]
+atlas = ExtResource("1_a6yql")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfiik"]
+atlas = ExtResource("1_a6yql")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7f26g"]
+atlas = ExtResource("1_a6yql")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t683b"]
+atlas = ExtResource("1_a6yql")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yg438"]
+atlas = ExtResource("1_a6yql")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l3evk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ou2t5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hxog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfiik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7f26g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t683b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yg438")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qkifx"]
+radius = 26.0
+
+[node name="Guy" type="CharacterBody2D" node_paths=PackedStringArray("HealthComponent")]
+collision_layer = 8
+collision_mask = 21
+script = ExtResource("1_oditk")
+HealthComponent = NodePath("HealthComponent")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_l3evk")
+autoplay = "default"
+frame_progress = 0.194289
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 27)
+shape = SubResource("CircleShape2D_qkifx")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_nuuol")]
