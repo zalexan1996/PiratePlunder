@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://ftfvh0h6tjjd"]
+
+[ext_resource type="Texture2D" uid="uid://bivcnmtldskl2" path="res://Assets/Effects/explosion1.png" id="1_dhgib"]
+[ext_resource type="Script" path="res://Features/Fx/Explosion.cs" id="1_ldama"]
+[ext_resource type="Texture2D" uid="uid://cq4vatxpt0h02" path="res://Assets/Effects/explosion2.png" id="2_l31fd"]
+[ext_resource type="Texture2D" uid="uid://dx6hdnh6ll4vb" path="res://Assets/Effects/explosion3.png" id="3_3nxii"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uv0ym"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_dhgib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_l31fd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3nxii")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_waavn"]
+radius = 32.573
+
+[node name="Explosion" type="Node2D" node_paths=PackedStringArray("AnimatedSprite2D")]
+script = ExtResource("1_ldama")
+AnimatedSprite2D = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uv0ym")
+autoplay = "default"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_waavn")
+
+[connection signal="body_entered" from="Area2D" to="." method="onBodyOverlap"]

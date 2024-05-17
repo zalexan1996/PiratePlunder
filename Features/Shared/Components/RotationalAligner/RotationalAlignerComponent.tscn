@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwy2qyffu42au"]
+
+[ext_resource type="Script" path="res://Features/Shared/Components/RotationalAligner/RotationalAlignerComponent.cs" id="1_jqtt0"]
+
+[node name="RotationalAlignerComponent" type="Node"]
+script = ExtResource("1_jqtt0")

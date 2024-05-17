@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcbrtqxv7utns"]
+
+[ext_resource type="PackedScene" uid="uid://bbkty2i1bx21k" path="res://Levels/TestLevel1.tscn" id="1_cru32"]
+[ext_resource type="PackedScene" uid="uid://d2x0c3e01mf6u" path="res://Features/Entities/Player/Player.tscn" id="3_onsmq"]
+[ext_resource type="PackedScene" uid="uid://bmp8eso5aimbq" path="res://Features/Entities/Enemy/Enemy.tscn" id="3_xmmc4"]
+
+[node name="Game" type="Node2D"]
+
+[node name="TestLevel1" parent="." instance=ExtResource("1_cru32")]
+
+[node name="Player" parent="." instance=ExtResource("3_onsmq")]
+position = Vector2(750, -43)
+
+[node name="Enemy" parent="." instance=ExtResource("3_xmmc4")]
+position = Vector2(136, -5)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_xmmc4")]
+position = Vector2(1114, 259)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_xmmc4")]
+position = Vector2(1208, -470)
+
+[node name="Enemy4" parent="." instance=ExtResource("3_xmmc4")]
+position = Vector2(-549, 842)
+
+[node name="Enemy5" parent="." instance=ExtResource("3_xmmc4")]
+position = Vector2(443, 886)
+
+[node name="Enemy6" parent="." instance=ExtResource("3_xmmc4")]
+position = Vector2(355, 786)
+
+[node name="Enemy7" parent="." instance=ExtResource("3_xmmc4")]
+position = Vector2(523, 754)
+
+[node name="Enemy8" parent="." instance=ExtResource("3_xmmc4")]
+position = Vector2(1267, -390)
+
+[node name="Enemy9" parent="." instance=ExtResource("3_xmmc4")]
+position = Vector2(-681, -726)
+
+[node name="Enemy10" parent="." instance=ExtResource("3_xmmc4")]
+position = Vector2(487, -1038)

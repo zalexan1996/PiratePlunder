@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://dnla3dfobu771"]
+
+[ext_resource type="Texture2D" uid="uid://bkkp6kvjnxec8" path="res://Assets/Ships/ship (2).png" id="1_hp8dw"]
+[ext_resource type="Script" path="res://Features/Entities/Ship/Ship.cs" id="1_v6o1n"]
+[ext_resource type="PackedScene" uid="uid://c6yu28e1nxa7w" path="res://Features/Shared/Components/Hitbox/HitboxComponent.tscn" id="2_tltyx"]
+[ext_resource type="PackedScene" uid="uid://cexbycu76vwfl" path="res://Features/Shared/Components/Velocity/VelocityComponent.tscn" id="4_tyokr"]
+[ext_resource type="PackedScene" uid="uid://cwy2qyffu42au" path="res://Features/Shared/Components/RotationalAligner/RotationalAlignerComponent.tscn" id="5_sntog"]
+[ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="6_j3wux"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_btblm"]
+radius = 20.0
+height = 98.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ktoqx"]
+height = 90.0
+
+[node name="Ship" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "VelocityComponent", "HealthComponent")]
+collision_layer = 2
+collision_mask = 17
+script = ExtResource("1_v6o1n")
+RotationalAlignerComponent = NodePath("RotationalAlignerComponent")
+VelocityComponent = NodePath("VelocityComponent")
+HealthComponent = NodePath("HealthComponent")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_hp8dw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_btblm")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_tltyx")]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CapsuleShape2D_ktoqx")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("4_tyokr")]
+
+[node name="RotationalAlignerComponent" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("5_sntog")]
+Target = NodePath("..")
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_j3wux")]

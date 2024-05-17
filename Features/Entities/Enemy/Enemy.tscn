@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmp8eso5aimbq"]
+
+[ext_resource type="Script" path="res://Features/Entities/Enemy/Enemy.cs" id="1_5xsnm"]
+[ext_resource type="PackedScene" uid="uid://dnla3dfobu771" path="res://Features/Entities/Ship/Ship.tscn" id="1_8yqhl"]
+[ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="3_o47hu"]
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_5xsnm")
+
+[node name="Ship" parent="." instance=ExtResource("1_8yqhl")]
+collision_layer = 8
+collision_mask = 27
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_o47hu")]

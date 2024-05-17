@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://ib0j15r3viy7"]
+
+[ext_resource type="Texture2D" uid="uid://cdn7ih05j4gd8" path="res://Assets/Ship parts/cannonBall.png" id="1_b7oqi"]
+[ext_resource type="Script" path="res://Features/Weapons/Cannonball/Cannonball.cs" id="1_bymjl"]
+[ext_resource type="PackedScene" uid="uid://ftfvh0h6tjjd" path="res://Features/Fx/Explosion.tscn" id="2_yiovp"]
+[ext_resource type="PackedScene" uid="uid://cexbycu76vwfl" path="res://Features/Shared/Components/Velocity/VelocityComponent.tscn" id="3_t5shi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ormd4"]
+radius = 4.0
+
+[node name="Cannonball" type="Area2D" node_paths=PackedStringArray("VelocityComponent")]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_bymjl")
+ExplosionScene = ExtResource("2_yiovp")
+VelocityComponent = NodePath("VelocityComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_b7oqi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ormd4")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_t5shi")]
+Dampening = 0.0
+Acceleration = 40.0
+MaxSpeed = 400.0
