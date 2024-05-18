@@ -18,16 +18,4 @@ public partial class Explosion : Node2D
 		QueueFree();
 	}
 
-	private void onBodyOverlap(Node2D body)
-	{
-		Debug.WriteLine($"Colliding with: {body.Name}");
-		
-		var damageableBody = body as ITakesDamage;
-		if (damageableBody == null)
-		{
-			return;
-		}
-
-		damageableBody.TakeDamage(1);
-	}
 }

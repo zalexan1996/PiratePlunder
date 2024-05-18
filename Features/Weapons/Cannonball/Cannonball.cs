@@ -36,15 +36,36 @@ public partial class Cannonball : Area2D
     public override void _PhysicsProcess(double delta)
     {
 		VelocityComponent.ApplyInputVector(Direction);
+		Debug.WriteLine(Direction);
+		Debug.WriteLine(StartingLocation);
+		Debug.WriteLine(TargetLocation);
+		Debug.WriteLine("");
 
 		Position += VelocityComponent.CurrentVelocity * (float)delta;
 
 		if (GlobalPosition.DistanceTo(TargetLocation) < 5)
 		{
-			var explosion = ExplosionScene.Instantiate<Explosion>();
-			explosion.GlobalPosition = GlobalPosition;
-			GetTree().CurrentScene.AddChild(explosion);
-			QueueFree();
+			explode();
 		}
     }
+
+	private void explode()
+	{
+		var explosion = ExplosionScene.Instantiate<Explosion>();
+		explosion.GlobalPosition = GlobalPosition;
+		GetTree().CurrentScene.CallDeferred(MethodName.AddChild, explosion);
+		CallDeferred(MethodName.QueueFree);
+	}
+
+	private void onBodyEntered(Node2D body)
+	{
+		var damageableBody = body as ITakesDamage;
+		if (damageableBody == null || damageableBody == Owner)
+		{
+			return;
+		}
+
+		damageableBody.TakeDamage(1);
+		explode();
+	}
 }

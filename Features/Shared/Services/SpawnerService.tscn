@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbmc4v1i352ux"]
+
+[ext_resource type="Script" path="res://Features/Shared/Services/SpawnerService.cs" id="1_6y0ba"]
+[ext_resource type="PackedScene" uid="uid://ib0j15r3viy7" path="res://Features/Weapons/Cannonball/Cannonball.tscn" id="2_ahx5g"]
+
+[node name="SpawnerService" type="Node"]
+script = ExtResource("1_6y0ba")
+CannonballScene = ExtResource("2_ahx5g")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://crl5r8a6a38su"]
+
+[ext_resource type="Texture2D" uid="uid://tm6ukw8ybdyl" path="res://Assets/Ship parts/cannon.png" id="1_pnies"]
+[ext_resource type="Script" path="res://Features/Entities/Ship/Cannon/Cannon.cs" id="1_pvj85"]
+
+[node name="Cannon" type="Node2D" node_paths=PackedStringArray("CannonballSpawn")]
+script = ExtResource("1_pvj85")
+CannonballSpawn = NodePath("Sprite2D/CannonballSpawn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 9)
+rotation = 1.5708
+texture = ExtResource("1_pnies")
+
+[node name="CannonballSpawn" type="Node2D" parent="Sprite2D"]
+position = Vector2(19, -8.30516e-07)
+rotation = -1.5708

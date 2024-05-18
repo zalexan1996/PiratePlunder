@@ -4,11 +4,22 @@
 [ext_resource type="PackedScene" uid="uid://dnla3dfobu771" path="res://Features/Entities/Ship/Ship.tscn" id="1_8yqhl"]
 [ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="3_o47hu"]
 
-[node name="Enemy" type="Node2D"]
+[node name="Enemy" type="Node2D" node_paths=PackedStringArray("Ship", "NavigationAgent2D")]
 script = ExtResource("1_5xsnm")
+Ship = NodePath("Ship")
+NavigationAgent2D = NodePath("NavigationAgent2D")
 
 [node name="Ship" parent="." instance=ExtResource("1_8yqhl")]
 collision_layer = 8
 collision_mask = 27
 
+[node name="VelocityComponent" parent="Ship" index="3"]
+MaxSpeed = 200.0
+
 [node name="HealthComponent" parent="." instance=ExtResource("3_o47hu")]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 3.0
+target_desired_distance = 3.0
+
+[editable path="Ship"]

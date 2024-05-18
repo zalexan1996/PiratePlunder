@@ -12,35 +12,9 @@
 [node name="Player" parent="." instance=ExtResource("3_onsmq")]
 position = Vector2(750, -43)
 
-[node name="Enemy" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(136, -5)
-
-[node name="Enemy2" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(1114, 259)
-
-[node name="Enemy3" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(1208, -470)
-
-[node name="Enemy4" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(-549, 842)
-
-[node name="Enemy5" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(443, 886)
-
-[node name="Enemy6" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(355, 786)
-
-[node name="Enemy7" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(523, 754)
-
-[node name="Enemy8" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(1267, -390)
-
-[node name="Enemy9" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(-681, -726)
-
-[node name="Enemy10" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(487, -1038)
+[node name="Enemy" parent="." node_paths=PackedStringArray("FollowTarget") instance=ExtResource("3_xmmc4")]
+position = Vector2(1283, 190)
+FollowTarget = NodePath("../Player/Ship")
 
 [node name="Guy" parent="." instance=ExtResource("4_0darb")]
 position = Vector2(348, 196)
@@ -59,3 +33,33 @@ position = Vector2(1436, 778)
 
 [node name="Guy6" parent="." instance=ExtResource("4_0darb")]
 position = Vector2(1794, 1067)
+
+[node name="Enemy2" parent="." node_paths=PackedStringArray("FollowTarget") instance=ExtResource("3_xmmc4")]
+position = Vector2(1098, -794)
+FollowTarget = NodePath("../Player/Ship")
+
+[node name="Enemy3" parent="." node_paths=PackedStringArray("FollowTarget") instance=ExtResource("3_xmmc4")]
+position = Vector2(-434, -605)
+FollowTarget = NodePath("../Player/Ship")
+
+[node name="Enemy4" parent="." node_paths=PackedStringArray("FollowTarget") instance=ExtResource("3_xmmc4")]
+position = Vector2(-424, 532)
+FollowTarget = NodePath("../Player/Ship")
+
+[node name="Enemy5" parent="." node_paths=PackedStringArray("FollowTarget") instance=ExtResource("3_xmmc4")]
+position = Vector2(606, 707)
+FollowTarget = NodePath("../Player/Ship")
+
+[node name="Enemy6" parent="." node_paths=PackedStringArray("FollowTarget") instance=ExtResource("3_xmmc4")]
+position = Vector2(2395, 325)
+FollowTarget = NodePath("../Player/Ship")
+
+[node name="Enemy7" parent="." node_paths=PackedStringArray("FollowTarget") instance=ExtResource("3_xmmc4")]
+position = Vector2(1700, 1729)
+FollowTarget = NodePath("../Player/Ship")
+
+[node name="Enemy8" parent="." node_paths=PackedStringArray("FollowTarget") instance=ExtResource("3_xmmc4")]
+position = Vector2(-274, 1405)
+FollowTarget = NodePath("../Player/Ship")
+
+[editable path="Player"]

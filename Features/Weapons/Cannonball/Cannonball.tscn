@@ -23,5 +23,7 @@ shape = SubResource("CircleShape2D_ormd4")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("3_t5shi")]
 Dampening = 0.0
-Acceleration = 40.0
+Acceleration = 120.0
 MaxSpeed = 400.0
+
+[connection signal="body_entered" from="." to="." method="onBodyEntered"]

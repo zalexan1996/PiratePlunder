@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2x0c3e01mf6u"]
+[gd_scene load_steps=5 format=3 uid="uid://d2x0c3e01mf6u"]
 
 [ext_resource type="PackedScene" uid="uid://dnla3dfobu771" path="res://Features/Entities/Ship/Ship.tscn" id="1_u33io"]
 [ext_resource type="Script" path="res://Features/Entities/Player/Player.cs" id="2_5ajrn"]
-[ext_resource type="PackedScene" uid="uid://ib0j15r3viy7" path="res://Features/Weapons/Cannonball/Cannonball.tscn" id="2_wpkbl"]
 [ext_resource type="PackedScene" uid="uid://dyhnakaiurdww" path="res://Features/Shared/Components/PlayerInput/PlayerInputComponent.tscn" id="3_hn4sd"]
 [ext_resource type="AudioStream" uid="uid://dsgymsvp6kmoi" path="res://Assets/Audio/cool_music.wav" id="5_rf1fb"]
 
@@ -10,7 +9,6 @@
 script = ExtResource("2_5ajrn")
 PlayerInputComponent = NodePath("PlayerInputComponent")
 Ship = NodePath("Ship")
-CannonballScene = ExtResource("2_wpkbl")
 
 [node name="Ship" parent="." instance=ExtResource("1_u33io")]
 collision_mask = 26

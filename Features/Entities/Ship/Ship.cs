@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class Ship : CharacterBody2D, ITakesDamage
 {
@@ -15,7 +16,19 @@ public partial class Ship : CharacterBody2D, ITakesDamage
 	public HealthComponent HealthComponent { get; set; }
 
 	[Export]
+	public AnimatedSprite2D Trail { get; set; }
+
+	[Export]
 	public Vector2 InputVector { get; set; } = Vector2.Zero;
+
+	[Export]
+	public RotationalAlignerComponent CannonAligner { get; set; }
+
+	[Export]
+	public Vector2 AimLocation { get; set; }
+
+	[Export]
+	public Cannon Cannon { get; set; }
 
     public override void _Ready()
     {
@@ -23,8 +36,11 @@ public partial class Ship : CharacterBody2D, ITakesDamage
 		_RotationalAlignerComponent.RotationHandler = () => {
 			return VelocityInterface.CurrentVelocity;
 		};
-    }
 
+		CannonAligner.RotationHandler = () => {
+			return (AimLocation - GlobalPosition).Rotated(-Rotation);
+		};
+    }
 
     public override void _PhysicsProcess(double delta)
 	{
@@ -37,6 +53,8 @@ public partial class Ship : CharacterBody2D, ITakesDamage
 
 		Velocity = VelocityInterface.CurrentVelocity;
 		MoveAndSlide();
+		
+		Trail.Modulate = new Color(1,1,1,Mathf.Lerp(0, 1, Velocity.Length() / VelocityComponent.MaxSpeed));
 	}
 
     public void TakeDamage(int damage)
@@ -47,4 +65,9 @@ public partial class Ship : CharacterBody2D, ITakesDamage
             QueueFree();
         }
     }
+
+	public void Fire()
+	{
+		Cannon.Fire(AimLocation, Vector2.Zero, this);
+	}
 }

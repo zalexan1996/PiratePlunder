@@ -1,11 +1,52 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnla3dfobu771"]
+[gd_scene load_steps=18 format=3 uid="uid://dnla3dfobu771"]
 
 [ext_resource type="Texture2D" uid="uid://bkkp6kvjnxec8" path="res://Assets/Ships/ship (2).png" id="1_hp8dw"]
 [ext_resource type="Script" path="res://Features/Entities/Ship/Ship.cs" id="1_v6o1n"]
 [ext_resource type="PackedScene" uid="uid://c6yu28e1nxa7w" path="res://Features/Shared/Components/Hitbox/HitboxComponent.tscn" id="2_tltyx"]
+[ext_resource type="Texture2D" uid="uid://cd550gbtwacnc" path="res://Assets/Effects/Trail/trail_1.png" id="3_s7ji6"]
+[ext_resource type="Texture2D" uid="uid://c4jweo5vyaxlt" path="res://Assets/Effects/Trail/trail_2.png" id="4_ot14p"]
 [ext_resource type="PackedScene" uid="uid://cexbycu76vwfl" path="res://Features/Shared/Components/Velocity/VelocityComponent.tscn" id="4_tyokr"]
+[ext_resource type="Texture2D" uid="uid://0ulcw0ofbrxm" path="res://Assets/Effects/Trail/trail_3.png" id="5_6gncu"]
 [ext_resource type="PackedScene" uid="uid://cwy2qyffu42au" path="res://Features/Shared/Components/RotationalAligner/RotationalAlignerComponent.tscn" id="5_sntog"]
+[ext_resource type="Texture2D" uid="uid://bw0krt34k5epp" path="res://Assets/Effects/FrontWave/frontwave_3.png" id="6_fyw20"]
 [ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="6_j3wux"]
+[ext_resource type="Texture2D" uid="uid://cvm5qkhjr01f6" path="res://Assets/Effects/FrontWave/frontwave_4.png" id="7_jq4h6"]
+[ext_resource type="Texture2D" uid="uid://3ga13cp04v8t" path="res://Assets/Effects/FrontWave/frontwave_5.png" id="8_4bfq8"]
+[ext_resource type="PackedScene" uid="uid://crl5r8a6a38su" path="res://Features/Entities/Ship/Cannon/Cannon.tscn" id="9_dbmdb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ounrt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_s7ji6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ot14p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6gncu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e2ny4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_fyw20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_jq4h6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4bfq8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_btblm"]
 radius = 20.0
@@ -14,16 +55,45 @@ height = 98.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ktoqx"]
 height = 90.0
 
-[node name="Ship" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "VelocityComponent", "HealthComponent")]
+[node name="Ship" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "VelocityComponent", "HealthComponent", "Trail", "CannonAligner", "Cannon")]
+position = Vector2(0, -1)
 collision_layer = 2
 collision_mask = 17
 script = ExtResource("1_v6o1n")
 RotationalAlignerComponent = NodePath("RotationalAlignerComponent")
 VelocityComponent = NodePath("VelocityComponent")
 HealthComponent = NodePath("HealthComponent")
+Trail = NodePath("Sprite/Trail")
+CannonAligner = NodePath("CannonAligner")
+Cannon = NodePath("Sprite/Cannon")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_hp8dw")
+
+[node name="Trail" type="AnimatedSprite2D" parent="Sprite"]
+modulate = Color(1, 1, 1, 0)
+show_behind_parent = true
+position = Vector2(-2, -62)
+sprite_frames = SubResource("SpriteFrames_ounrt")
+autoplay = "default"
+frame_progress = 0.201004
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite/Trail"]
+self_modulate = Color(1, 1, 1, 0.717647)
+show_behind_parent = true
+position = Vector2(2, 118)
+rotation = -3.14159
+scale = Vector2(1.085, 1)
+sprite_frames = SubResource("SpriteFrames_e2ny4")
+autoplay = "default"
+frame = 1
+frame_progress = 0.826733
+
+[node name="Cannon" parent="Sprite" instance=ExtResource("9_dbmdb")]
+position = Vector2(0, 32)
+
+[node name="CannonballSpawn" type="Node2D" parent="Sprite/Cannon"]
+position = Vector2(0, 28)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_btblm")
@@ -41,3 +111,6 @@ shape = SubResource("CapsuleShape2D_ktoqx")
 Target = NodePath("..")
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_j3wux")]
+
+[node name="CannonAligner" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("5_sntog")]
+Target = NodePath("../Sprite/Cannon")
