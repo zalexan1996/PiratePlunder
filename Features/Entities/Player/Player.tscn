@@ -1,22 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2x0c3e01mf6u"]
+[gd_scene load_steps=9 format=3 uid="uid://d2x0c3e01mf6u"]
 
 [ext_resource type="PackedScene" uid="uid://dnla3dfobu771" path="res://Features/Entities/Ship/Ship.tscn" id="1_u33io"]
 [ext_resource type="Script" path="res://Features/Entities/Player/Player.cs" id="2_5ajrn"]
 [ext_resource type="PackedScene" uid="uid://dyhnakaiurdww" path="res://Features/Shared/Components/PlayerInput/PlayerInputComponent.tscn" id="3_hn4sd"]
+[ext_resource type="PackedScene" uid="uid://cexbycu76vwfl" path="res://Features/Shared/Components/Velocity/VelocityComponent.tscn" id="5_1thuy"]
 [ext_resource type="AudioStream" uid="uid://dsgymsvp6kmoi" path="res://Assets/Audio/cool_music.wav" id="5_rf1fb"]
+[ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="6_wteoy"]
+[ext_resource type="PackedScene" uid="uid://cwy2qyffu42au" path="res://Features/Shared/Components/RotationalAligner/RotationalAlignerComponent.tscn" id="7_lrmdq"]
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("PlayerInputComponent", "Ship")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gda4w"]
+height = 82.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "HealthComponent", "PlayerInputComponent", "Ship", "VelocityComponent")]
+collision_layer = 2
+collision_mask = 27
 script = ExtResource("2_5ajrn")
+RotationalAlignerComponent = NodePath("RotationalAlignerComponent")
+HealthComponent = NodePath("HealthComponent")
 PlayerInputComponent = NodePath("PlayerInputComponent")
 Ship = NodePath("Ship")
+VelocityComponent = NodePath("VelocityComponent")
 
-[node name="Ship" parent="." instance=ExtResource("1_u33io")]
-collision_mask = 26
-
-[node name="Camera2D" type="Camera2D" parent="Ship"]
-
-[node name="PlayerInputComponent" parent="." instance=ExtResource("3_hn4sd")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_gda4w")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_rf1fb")
 autoplay = true
+
+[node name="PlayerInputComponent" parent="." instance=ExtResource("3_hn4sd")]
+
+[node name="VelocityComponent" parent="." instance=ExtResource("5_1thuy")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_wteoy")]
+
+[node name="RotationalAlignerComponent" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("7_lrmdq")]
+Target = NodePath("..")
+
+[node name="Ship" parent="." instance=ExtResource("1_u33io")]
+
+[node name="Camera2D" type="Camera2D" parent="Ship"]

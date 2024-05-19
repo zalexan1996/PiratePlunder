@@ -1,25 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmp8eso5aimbq"]
+[gd_scene load_steps=8 format=3 uid="uid://bmp8eso5aimbq"]
 
 [ext_resource type="Script" path="res://Features/Entities/Enemy/Enemy.cs" id="1_5xsnm"]
 [ext_resource type="PackedScene" uid="uid://dnla3dfobu771" path="res://Features/Entities/Ship/Ship.tscn" id="1_8yqhl"]
+[ext_resource type="PackedScene" uid="uid://dbbjmis8n87bn" path="res://Features/Shared/Components/ProximityDetection/ProximityDetectionComponent.tscn" id="3_n3f4s"]
 [ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="3_o47hu"]
+[ext_resource type="PackedScene" uid="uid://cexbycu76vwfl" path="res://Features/Shared/Components/Velocity/VelocityComponent.tscn" id="5_7di3g"]
+[ext_resource type="PackedScene" uid="uid://cwy2qyffu42au" path="res://Features/Shared/Components/RotationalAligner/RotationalAlignerComponent.tscn" id="6_q80sa"]
 
-[node name="Enemy" type="Node2D" node_paths=PackedStringArray("Ship", "NavigationAgent2D")]
-script = ExtResource("1_5xsnm")
-Ship = NodePath("Ship")
-NavigationAgent2D = NodePath("NavigationAgent2D")
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sfw2m"]
+height = 94.0
 
-[node name="Ship" parent="." instance=ExtResource("1_8yqhl")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "Ship", "HealthComponent", "NavigationAgent2D", "VelocityComponent", "ProximityDetectionComponent")]
 collision_layer = 8
 collision_mask = 27
+script = ExtResource("1_5xsnm")
+RotationalAlignerComponent = NodePath("RotationalAlignerComponent")
+Ship = NodePath("Ship")
+HealthComponent = NodePath("HealthComponent")
+NavigationAgent2D = NodePath("NavigationAgent2D")
+VelocityComponent = NodePath("VelocityComponent")
+ProximityDetectionComponent = NodePath("ProximityDetectionComponent")
 
-[node name="VelocityComponent" parent="Ship" index="3"]
-MaxSpeed = 200.0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_sfw2m")
+
+[node name="Ship" parent="." instance=ExtResource("1_8yqhl")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_o47hu")]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 3.0
 target_desired_distance = 3.0
+
+[node name="VelocityComponent" parent="." instance=ExtResource("5_7di3g")]
+
+[node name="RotationalAlignerComponent" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("6_q80sa")]
+Target = NodePath("..")
+
+[node name="ProximityDetectionComponent" parent="." instance=ExtResource("3_n3f4s")]
+position = Vector2(0, -1)
+DetectionRadius = 600.0
+
+[connection signal="PlayerDetected" from="ProximityDetectionComponent" to="." method="startFollow"]
+[connection signal="PlayerLeft" from="ProximityDetectionComponent" to="." method="stopFollow"]
 
 [editable path="Ship"]
