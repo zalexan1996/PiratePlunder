@@ -4,6 +4,8 @@ using Godot;
 
 public partial class Enemy : CharacterBody2D, ITakesDamage
 {
+    [Export]
+    public ShipData ShipData { get; set; }
 	[Export]
 	public RotationalAlignerComponent RotationalAlignerComponent { get; set; }
 	private IRotationalAlignerComponent _RotationalAlignerComponent => RotationalAlignerComponent;
@@ -31,6 +33,9 @@ public partial class Enemy : CharacterBody2D, ITakesDamage
     private float navUpdateDelay = 0.0f;
     public override void _Ready()
     {
+        VelocityComponent.MaxSpeed = ShipData.MaxSpeed;
+        Ship.Cannon.ReloadDelay = ShipData.ReloadDuration;
+        HealthComponent.MaxHealth = ShipData.MaxHealth;
         SetPhysicsProcess(false);
         NavigationServer2D.MapChanged += SyncWithNavigationServer;
         RotationalAlignerComponent.RotationHandler = () => {

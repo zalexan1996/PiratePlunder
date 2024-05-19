@@ -3,6 +3,8 @@ using Godot;
 
 public partial class Player : CharacterBody2D, ITakesDamage
 {
+    [Export]
+    public ShipData ShipData { get; set; }
 	[Export]
 	public RotationalAlignerComponent RotationalAlignerComponent { get; set; }
 	private IRotationalAlignerComponent _RotationalAlignerComponent => RotationalAlignerComponent;
@@ -23,6 +25,9 @@ public partial class Player : CharacterBody2D, ITakesDamage
 	private IVelocityComponent VelocityInterface => VelocityComponent;
     public override void _Ready()
     {
+        VelocityComponent.MaxSpeed = ShipData.MaxSpeed;
+        Ship.Cannon.ReloadDelay = ShipData.ReloadDuration;
+        HealthComponent.MaxHealth = ShipData.MaxHealth;
         PlayerInputComponent.Fire += onFire;
         RotationalAlignerComponent.RotationHandler = () => {
 			return VelocityInterface.CurrentVelocity;
