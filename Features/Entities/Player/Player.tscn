@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2x0c3e01mf6u"]
+[gd_scene load_steps=11 format=3 uid="uid://d2x0c3e01mf6u"]
 
 [ext_resource type="PackedScene" uid="uid://dnla3dfobu771" path="res://Features/Entities/Ship/Ship.tscn" id="1_u33io"]
 [ext_resource type="Script" path="res://Features/Entities/Player/Player.cs" id="2_5ajrn"]
@@ -8,17 +8,19 @@
 [ext_resource type="AudioStream" uid="uid://dsgymsvp6kmoi" path="res://Assets/Audio/cool_music.wav" id="5_rf1fb"]
 [ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="6_wteoy"]
 [ext_resource type="PackedScene" uid="uid://cwy2qyffu42au" path="res://Features/Shared/Components/RotationalAligner/RotationalAlignerComponent.tscn" id="7_lrmdq"]
+[ext_resource type="PackedScene" uid="uid://bc5rf0desi28c" path="res://Features/UI/HealthDisplay/HealthDisplayComponent.tscn" id="9_cix2y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gda4w"]
 height = 82.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "HealthComponent", "PlayerInputComponent", "Ship", "VelocityComponent")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "HealthComponent", "HealthDisplayPoint", "PlayerInputComponent", "Ship", "VelocityComponent")]
 collision_layer = 2
 collision_mask = 27
 script = ExtResource("2_5ajrn")
 ShipData = ExtResource("2_b2swa")
 RotationalAlignerComponent = NodePath("RotationalAlignerComponent")
 HealthComponent = NodePath("HealthComponent")
+HealthDisplayPoint = NodePath("HealthDisplayPoint")
 PlayerInputComponent = NodePath("PlayerInputComponent")
 Ship = NodePath("Ship")
 VelocityComponent = NodePath("VelocityComponent")
@@ -42,3 +44,13 @@ Target = NodePath("..")
 [node name="Ship" parent="." instance=ExtResource("1_u33io")]
 
 [node name="Camera2D" type="Camera2D" parent="Ship"]
+
+[node name="HealthDisplayPoint" type="Node2D" parent="."]
+
+[node name="HealthDisplayComponent" parent="HealthDisplayPoint" node_paths=PackedStringArray("HealthComponent") instance=ExtResource("9_cix2y")]
+offset_top = -80.0
+offset_bottom = -76.0
+HealthComponent = NodePath("../../HealthComponent")
+
+[node name="HealthDisplayAligner" parent="HealthDisplayPoint/HealthDisplayComponent" node_paths=PackedStringArray("Target") instance=ExtResource("7_lrmdq")]
+Target = NodePath("../..")

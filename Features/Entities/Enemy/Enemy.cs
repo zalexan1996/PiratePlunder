@@ -19,6 +19,8 @@ public partial class Enemy : CharacterBody2D, ITakesDamage
 	public HealthComponent HealthComponent { get; set; }
     [Export]
     public NavigationAgent2D NavigationAgent2D { get; set; }
+	[Export]
+	public Node2D HealthDisplayPoint { get; set; }
 
     [Export]
     public Node2D FollowTarget { get; set; }
@@ -72,6 +74,7 @@ public partial class Enemy : CharacterBody2D, ITakesDamage
         }
 
         Ship.SetTrailIntensity(Mathf.Lerp(0, 1, Velocity.Length() / VelocityComponent.MaxSpeed));
+        HealthDisplayPoint.Rotation = -Rotation;
     }
 
     private void startFollow(Player player)

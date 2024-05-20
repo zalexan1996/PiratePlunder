@@ -6,4 +6,4 @@
 script = ExtResource("1_ub2uu")
 MaxSpeed = 250.0
 ReloadDuration = 1.5
-HealthComponent = 3
+MaxHealth = 3

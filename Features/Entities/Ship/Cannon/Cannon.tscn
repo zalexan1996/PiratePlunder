@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://crl5r8a6a38su"]
+[gd_scene load_steps=5 format=3 uid="uid://crl5r8a6a38su"]
 
 [ext_resource type="Texture2D" uid="uid://tm6ukw8ybdyl" path="res://Assets/Ship parts/cannon.png" id="1_pnies"]
 [ext_resource type="Script" path="res://Features/Entities/Ship/Cannon/Cannon.cs" id="1_pvj85"]
+[ext_resource type="PackedScene" uid="uid://dsyqbaa43qrb6" path="res://Features/Fx/CannonFire.tscn" id="3_4q60s"]
+[ext_resource type="AudioStream" uid="uid://d1lo6jo5ud6yi" path="res://Assets/Audio/cannon.wav" id="4_ifvjj"]
 
-[node name="Cannon" type="Node2D" node_paths=PackedStringArray("CannonballSpawn", "ReloadTimer")]
+[node name="Cannon" type="Node2D" node_paths=PackedStringArray("CannonballSpawn", "CannonAudio", "ReloadTimer", "CannonFire")]
 script = ExtResource("1_pvj85")
 CannonballSpawn = NodePath("Sprite2D/CannonballSpawn")
+CannonAudio = NodePath("CannonAudio")
 ReloadTimer = NodePath("Timer")
+CannonFire = NodePath("Sprite2D/CannonballSpawn/CannonFire")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 9)
@@ -17,6 +21,20 @@ texture = ExtResource("1_pnies")
 position = Vector2(19, -8.30516e-07)
 rotation = -1.5708
 
+[node name="CannonFire" parent="Sprite2D/CannonballSpawn" instance=ExtResource("3_4q60s")]
+position = Vector2(6.79493e-05, 7)
+rotation = 3.14159
+scale = Vector2(0.15, 0.23)
+frame = 0
+frame_progress = 0.0
+
 [node name="Timer" type="Timer" parent="."]
 
+[node name="CannonAudio" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 28)
+stream = ExtResource("4_ifvjj")
+max_distance = 800.0
+attenuation = 1.51572
+
+[connection signal="animation_finished" from="Sprite2D/CannonballSpawn/CannonFire" to="." method="onCannonFireEnd"]
 [connection signal="timeout" from="Timer" to="." method="onTimerOver"]

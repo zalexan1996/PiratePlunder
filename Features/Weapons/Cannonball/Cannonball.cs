@@ -36,11 +36,7 @@ public partial class Cannonball : Area2D
     public override void _PhysicsProcess(double delta)
     {
 		VelocityComponent.ApplyInputVector(Direction);
-		Debug.WriteLine(Direction);
-		Debug.WriteLine(StartingLocation);
-		Debug.WriteLine(TargetLocation);
-		Debug.WriteLine("");
-
+		
 		Position += VelocityComponent.CurrentVelocity * (float)delta;
 
 		if (GlobalPosition.DistanceTo(TargetLocation) < 5)

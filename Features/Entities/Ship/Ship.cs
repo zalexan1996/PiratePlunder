@@ -19,7 +19,6 @@ public partial class Ship : Node2D
     public override void _Ready()
     {
         base._Ready();
-
     }
 
 	public void Fire()

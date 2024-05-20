@@ -6,16 +6,13 @@ public partial class Explosion : Node2D
 {
 	[Export]
 	public AnimatedSprite2D AnimatedSprite2D { get; set; }
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	private void onAnimationFinished()
 	{
-		AnimatedSprite2D.AnimationFinished += onAnimationFinished;
+		AnimatedSprite2D.Visible = false;
 	}
 
-	private void onAnimationFinished()
+	private void onExplosionEnd()
 	{
 		QueueFree();
 	}
-
 }

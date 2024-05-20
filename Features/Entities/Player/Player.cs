@@ -5,14 +5,18 @@ public partial class Player : CharacterBody2D, ITakesDamage
 {
     [Export]
     public ShipData ShipData { get; set; }
+
 	[Export]
 	public RotationalAlignerComponent RotationalAlignerComponent { get; set; }
 	private IRotationalAlignerComponent _RotationalAlignerComponent => RotationalAlignerComponent;
+
 
 	[Export]
 	public Vector2 InputVector { get; set; } = Vector2.Zero;
 	[Export]
 	public HealthComponent HealthComponent { get; set; }
+	[Export]
+	public Node2D HealthDisplayPoint { get; set; }
     [Export]
     public PlayerInputComponent PlayerInputComponent { get; set; }
     private IPlayerInputComponent _PlayerInputComponent => PlayerInputComponent;
@@ -32,7 +36,7 @@ public partial class Player : CharacterBody2D, ITakesDamage
         RotationalAlignerComponent.RotationHandler = () => {
 			return VelocityInterface.CurrentVelocity;
 		};
-        
+
 		Ship.CannonAligner.RotationHandler = () => {
 			return (Ship.AimLocation - GlobalPosition).Rotated(-Rotation);
 		};
@@ -53,7 +57,7 @@ public partial class Player : CharacterBody2D, ITakesDamage
         InputVector = _PlayerInputComponent.InputVector;
         Ship.AimLocation = GetGlobalMousePosition();
         Ship.SetTrailIntensity(Mathf.Lerp(0, 1, Velocity.Length() / VelocityComponent.MaxSpeed));
-
+        HealthDisplayPoint.Rotation = -Rotation;
         base._PhysicsProcess(delta);
     }
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cpkvubti4xyqk"]
+[gd_scene load_steps=13 format=3 uid="uid://cpkvubti4xyqk"]
 
 [ext_resource type="Texture2D" uid="uid://cf40fb6yxe4ey" path="res://Assets/guy.png" id="1_a6yql"]
 [ext_resource type="Script" path="res://Features/Entities/Guy/Guy.cs" id="1_oditk"]
+[ext_resource type="PackedScene" uid="uid://uhwgyhq8lkjc" path="res://Features/Fx/BloodExplosion/BloodExplosion.tscn" id="2_sd6ur"]
 [ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="4_nuuol"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ou2t5"]
@@ -62,15 +63,18 @@ collision_layer = 8
 collision_mask = 21
 script = ExtResource("1_oditk")
 HealthComponent = NodePath("HealthComponent")
+BloodExplosionScene = ExtResource("2_sd6ur")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -32)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_l3evk")
 autoplay = "default"
 frame_progress = 0.194289
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 27)
 shape = SubResource("CircleShape2D_qkifx")
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_nuuol")]
+MaxHealth = 1
+CurrentHealth = 1
