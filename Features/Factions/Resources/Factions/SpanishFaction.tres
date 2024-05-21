@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://d20h21slxoxd0"]
+
+[ext_resource type="Script" path="res://Features/Factions/Resources/FactionResource.cs" id="1_qrepa"]
+
+[resource]
+script = ExtResource("1_qrepa")
+FactionId = "S"
+FactionName = "Spanish"

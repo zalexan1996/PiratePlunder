@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://lxw8od7axaqq"]
+
+[ext_resource type="Script" path="res://Features/Factions/Resources/FactionResource.cs" id="1_f5hwn"]
+
+[resource]
+script = ExtResource("1_f5hwn")
+FactionId = "X"
+FactionName = "Player"

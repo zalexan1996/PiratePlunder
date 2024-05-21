@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://2al8clk34ayk"]
+
+[ext_resource type="Texture2D" uid="uid://b5ubiyad083qn" path="res://Assets/Ships/ship (8).png" id="1_gjhnl"]
+[ext_resource type="Texture2D" uid="uid://bkkp6kvjnxec8" path="res://Assets/Ships/ship (2).png" id="1_lc0qt"]
+[ext_resource type="Resource" uid="uid://dbietostorrer" path="res://Features/Factions/Resources/Factions/PirateFaction.tres" id="2_r0dx5"]
+[ext_resource type="Resource" uid="uid://b3n7ta8ujaggu" path="res://Features/Factions/Resources/ShipTypes/PirateShipType.tres" id="3_51yqo"]
+[ext_resource type="Script" path="res://Features/Models/ShipData.cs" id="3_eptcr"]
+
+[resource]
+script = ExtResource("3_eptcr")
+MaxSpeed = 250.0
+ReloadDuration = 1.5
+MaxHealth = 3
+FactionResource = ExtResource("2_r0dx5")
+ShipType = ExtResource("3_51yqo")
+BoatImage = ExtResource("1_lc0qt")
+DamagedBoatImage = ExtResource("1_gjhnl")

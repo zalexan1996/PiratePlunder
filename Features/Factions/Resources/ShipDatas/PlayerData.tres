@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://cbjq5sdyyuhtl"]
+
+[ext_resource type="Texture2D" uid="uid://c1qprvrpujik1" path="res://Assets/Ships/ship (4).png" id="1_4wqy0"]
+[ext_resource type="Resource" uid="uid://lxw8od7axaqq" path="res://Features/Factions/Resources/Factions/PlayerFaction.tres" id="2_hy53q"]
+[ext_resource type="Texture2D" uid="uid://cgpky80eots87" path="res://Assets/Ships/ship (16).png" id="2_w37kb"]
+[ext_resource type="Script" path="res://Features/Models/ShipData.cs" id="3_chtfo"]
+
+[resource]
+script = ExtResource("3_chtfo")
+MaxSpeed = 400.0
+ReloadDuration = 1.5
+MaxHealth = 3
+FactionResource = ExtResource("2_hy53q")
+BoatImage = ExtResource("1_4wqy0")
+DamagedBoatImage = ExtResource("2_w37kb")

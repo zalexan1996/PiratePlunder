@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://82lg6xcqm3bs"]
+
+[ext_resource type="Texture2D" uid="uid://dkruq6axt5egn" path="res://Assets/Ships/ship (3).png" id="1_6gfja"]
+[ext_resource type="Texture2D" uid="uid://dqg1ldcmcxovf" path="res://Assets/Ships/ship (9).png" id="2_7rvt3"]
+[ext_resource type="Resource" uid="uid://d20h21slxoxd0" path="res://Features/Factions/Resources/Factions/SpanishFaction.tres" id="2_rxa53"]
+[ext_resource type="Resource" uid="uid://b2nmkqvgjgen1" path="res://Features/Factions/Resources/ShipTypes/MerchantShipType.tres" id="3_2gky1"]
+[ext_resource type="Script" path="res://Features/Models/ShipData.cs" id="4_4gjok"]
+
+[resource]
+script = ExtResource("4_4gjok")
+MaxSpeed = 200.0
+ReloadDuration = 1.0
+MaxHealth = 3
+FactionResource = ExtResource("2_rxa53")
+ShipType = ExtResource("3_2gky1")
+BoatImage = ExtResource("1_6gfja")
+DamagedBoatImage = ExtResource("2_7rvt3")

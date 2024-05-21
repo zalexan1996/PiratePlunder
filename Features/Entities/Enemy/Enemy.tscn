@@ -1,29 +1,38 @@
-[gd_scene load_steps=11 format=3 uid="uid://bmp8eso5aimbq"]
+[gd_scene load_steps=15 format=3 uid="uid://bmp8eso5aimbq"]
 
 [ext_resource type="Script" path="res://Features/Entities/Enemy/Enemy.cs" id="1_5xsnm"]
 [ext_resource type="PackedScene" uid="uid://dnla3dfobu771" path="res://Features/Entities/Ship/Ship.tscn" id="1_8yqhl"]
+[ext_resource type="Texture2D" uid="uid://bkkp6kvjnxec8" path="res://Assets/Ships/ship (2).png" id="2_dheji"]
+[ext_resource type="Texture2D" uid="uid://b5ubiyad083qn" path="res://Assets/Ships/ship (8).png" id="2_rvvae"]
 [ext_resource type="Script" path="res://Features/Models/ShipData.cs" id="2_si58m"]
 [ext_resource type="PackedScene" uid="uid://dbbjmis8n87bn" path="res://Features/Shared/Components/ProximityDetection/ProximityDetectionComponent.tscn" id="3_n3f4s"]
 [ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="3_o47hu"]
 [ext_resource type="PackedScene" uid="uid://cexbycu76vwfl" path="res://Features/Shared/Components/Velocity/VelocityComponent.tscn" id="5_7di3g"]
 [ext_resource type="PackedScene" uid="uid://cwy2qyffu42au" path="res://Features/Shared/Components/RotationalAligner/RotationalAlignerComponent.tscn" id="6_q80sa"]
 [ext_resource type="PackedScene" uid="uid://bc5rf0desi28c" path="res://Features/UI/HealthDisplay/HealthDisplayComponent.tscn" id="8_6q16g"]
+[ext_resource type="PackedScene" uid="uid://b3l0nttq4kqhb" path="res://Features/Factions/Components/FactionComponent.tscn" id="9_bf00v"]
+[ext_resource type="Resource" uid="uid://dbietostorrer" path="res://Features/Factions/Resources/Factions/PirateFaction.tres" id="10_r7dkk"]
 
 [sub_resource type="Resource" id="Resource_ymror"]
 script = ExtResource("2_si58m")
 MaxSpeed = 220.0
 ReloadDuration = 1.5
 MaxHealth = 3
+FactionResource = ExtResource("10_r7dkk")
+BoatImage = ExtResource("2_dheji")
+DamagedBoatImage = ExtResource("2_rvvae")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sfw2m"]
+radius = 22.0
 height = 94.0
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "Ship", "HealthComponent", "NavigationAgent2D", "HealthDisplayPoint", "VelocityComponent", "ProximityDetectionComponent")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "FactionComponent", "Ship", "HealthComponent", "NavigationAgent2D", "HealthDisplayPoint", "VelocityComponent", "ProximityDetectionComponent")]
 collision_layer = 8
 collision_mask = 27
 script = ExtResource("1_5xsnm")
 ShipData = SubResource("Resource_ymror")
 RotationalAlignerComponent = NodePath("RotationalAlignerComponent")
+FactionComponent = NodePath("FactionComponent")
 Ship = NodePath("Ship")
 HealthComponent = NodePath("HealthDisplayPoint/HealthComponent")
 NavigationAgent2D = NodePath("NavigationAgent2D")
@@ -47,7 +56,8 @@ Target = NodePath("..")
 
 [node name="ProximityDetectionComponent" parent="." instance=ExtResource("3_n3f4s")]
 position = Vector2(0, -1)
-DetectionRadius = 600.0
+collision_mask = 8
+DetectionRadius = 500.0
 
 [node name="HealthDisplayPoint" type="Node2D" parent="."]
 
@@ -58,7 +68,7 @@ HealthComponent = NodePath("../HealthComponent")
 
 [node name="HealthComponent" parent="HealthDisplayPoint" instance=ExtResource("3_o47hu")]
 
-[connection signal="PlayerDetected" from="ProximityDetectionComponent" to="." method="startFollow"]
-[connection signal="PlayerLeft" from="ProximityDetectionComponent" to="." method="stopFollow"]
+[node name="FactionComponent" parent="." instance=ExtResource("9_bf00v")]
+Faction = ExtResource("10_r7dkk")
 
 [editable path="Ship"]

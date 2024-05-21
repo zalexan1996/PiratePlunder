@@ -33,6 +33,8 @@ public partial class Cannonball : Area2D
 
 	protected Vector2 Direction => (TargetLocation - StartingLocation).Normalized();
 
+	protected FactionResource OwnerFaction => ((IInFaction)Owner).GetFaction();
+
     public override void _PhysicsProcess(double delta)
     {
 		VelocityComponent.ApplyInputVector(Direction);
@@ -53,10 +55,17 @@ public partial class Cannonball : Area2D
 		CallDeferred(MethodName.QueueFree);
 	}
 
+
 	private void onBodyEntered(Node2D body)
 	{
 		var damageableBody = body as ITakesDamage;
+		var inFaction = body as IInFaction;
 		if (damageableBody == null || damageableBody == Owner)
+		{
+			return;
+		}
+
+		if (inFaction is not null && inFaction.IsInFaction(OwnerFaction))
 		{
 			return;
 		}

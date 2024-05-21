@@ -1,0 +1,29 @@
+# Todo List
+
+- Factions
+    - Merchants
+    - Navy
+        - English Navy
+        - Spanish Navy
+        - French Navy
+    - Pirate Gangs
+- Settlements
+    - Faction specific settlements
+    - Trade for food, cannonballs, and wood
+- Loot
+    - Pirate ships have less jewelry and more cannonballs and wood
+    - Merchant ships only have money and jewelry
+    - Navy ships only have cannonballs, wood, and food
+- Hunger
+    - If hunger gets too low, your crew will mutiny
+    - Reduce hunger by looting ships and settlements
+- Ship Debris
+    - Destroying a ship will spawn debris in the ocean that you can loot
+- Ship Repairs
+    - Repair your ship with wood. Takes a little bit of time.
+- Merchants
+    - Merchant ships travel from settlement to settlement in trade routes. They're escorted by their navy. 
+- Combat Music
+- Crew Customization
+- Bounty
+    - Faction-specific bounties

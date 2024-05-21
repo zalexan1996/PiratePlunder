@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dbietostorrer"]
+
+[ext_resource type="Script" path="res://Features/Factions/Resources/FactionResource.cs" id="1_87xmn"]
+
+[resource]
+script = ExtResource("1_87xmn")
+FactionId = "P"
+FactionName = "Pirate"

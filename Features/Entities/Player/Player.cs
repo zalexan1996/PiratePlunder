@@ -1,7 +1,7 @@
 
 using Godot;
 
-public partial class Player : CharacterBody2D, ITakesDamage
+public partial class Player : CharacterBody2D, IEntity
 {
     [Export]
     public ShipData ShipData { get; set; }
@@ -10,13 +10,18 @@ public partial class Player : CharacterBody2D, ITakesDamage
 	public RotationalAlignerComponent RotationalAlignerComponent { get; set; }
 	private IRotationalAlignerComponent _RotationalAlignerComponent => RotationalAlignerComponent;
 
+    [Export]
+    public FactionComponent FactionComponent { get; set; }
 
 	[Export]
 	public Vector2 InputVector { get; set; } = Vector2.Zero;
+
 	[Export]
 	public HealthComponent HealthComponent { get; set; }
+
 	[Export]
 	public Node2D HealthDisplayPoint { get; set; }
+
     [Export]
     public PlayerInputComponent PlayerInputComponent { get; set; }
     private IPlayerInputComponent _PlayerInputComponent => PlayerInputComponent;
@@ -32,6 +37,10 @@ public partial class Player : CharacterBody2D, ITakesDamage
         VelocityComponent.MaxSpeed = ShipData.MaxSpeed;
         Ship.Cannon.ReloadDelay = ShipData.ReloadDuration;
         HealthComponent.MaxHealth = ShipData.MaxHealth;
+        HealthComponent.CurrentHealth = ShipData.MaxHealth;
+        
+        FactionComponent.Faction = ShipData.FactionResource;
+        Ship.GetNode<Sprite2D>("Sprite").Texture = ShipData.BoatImage;
         PlayerInputComponent.Fire += onFire;
         RotationalAlignerComponent.RotationHandler = () => {
 			return VelocityInterface.CurrentVelocity;
@@ -40,6 +49,8 @@ public partial class Player : CharacterBody2D, ITakesDamage
 		Ship.CannonAligner.RotationHandler = () => {
 			return (Ship.AimLocation - GlobalPosition).Rotated(-Rotation);
 		};
+
+        
     }
 
     public override void _PhysicsProcess(double delta)
@@ -72,5 +83,14 @@ public partial class Player : CharacterBody2D, ITakesDamage
         {
             QueueFree();
         }
+
+        if (HealthComponent.CurrentHealth / (float)HealthComponent.MaxHealth <= 0.5 && ShipData.DamagedBoatImage is not null)
+        {
+            Ship.GetNode<Sprite2D>("Sprite").Texture = ShipData.DamagedBoatImage;
+        }
     }
+
+    public FactionResource GetFaction() => FactionComponent.Faction;
+
+    public bool IsHostileWith(IEntity entity) => true;
 }

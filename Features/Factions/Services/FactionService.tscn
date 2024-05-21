@@ -1,0 +1,12 @@
+[gd_scene load_steps=7 format=3 uid="uid://l8yknywiilxs"]
+
+[ext_resource type="Script" path="res://Features/Factions/Services/FactionService.cs" id="1_3pwvy"]
+[ext_resource type="Resource" uid="uid://d2w5puyj2yk31" path="res://Features/Factions/Resources/Factions/FrenchFaction.tres" id="2_t0jbx"]
+[ext_resource type="Resource" uid="uid://1rilm6wvqih0" path="res://Features/Factions/Resources/Factions/EnglishFaction.tres" id="3_x5fhw"]
+[ext_resource type="Resource" uid="uid://dbietostorrer" path="res://Features/Factions/Resources/Factions/PirateFaction.tres" id="4_73b8r"]
+[ext_resource type="Resource" uid="uid://lxw8od7axaqq" path="res://Features/Factions/Resources/Factions/PlayerFaction.tres" id="5_g20rh"]
+[ext_resource type="Resource" uid="uid://d20h21slxoxd0" path="res://Features/Factions/Resources/Factions/SpanishFaction.tres" id="6_856t2"]
+
+[node name="FactionService" type="Node"]
+script = ExtResource("1_3pwvy")
+Factions = Array[Resource]([ExtResource("2_t0jbx"), ExtResource("3_x5fhw"), ExtResource("4_73b8r"), ExtResource("5_g20rh"), ExtResource("6_856t2")])

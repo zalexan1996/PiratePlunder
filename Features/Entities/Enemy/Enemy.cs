@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using Godot;
 
-public partial class Enemy : CharacterBody2D, ITakesDamage
+public partial class Enemy : CharacterBody2D, IEntity
 {
     [Export]
     public ShipData ShipData { get; set; }
@@ -10,6 +10,8 @@ public partial class Enemy : CharacterBody2D, ITakesDamage
 	public RotationalAlignerComponent RotationalAlignerComponent { get; set; }
 	private IRotationalAlignerComponent _RotationalAlignerComponent => RotationalAlignerComponent;
 
+    [Export]
+    public FactionComponent FactionComponent { get; set; }
 	[Export]
 	public Vector2 InputVector { get; set; } = Vector2.Zero;
     [Export]
@@ -22,8 +24,7 @@ public partial class Enemy : CharacterBody2D, ITakesDamage
 	[Export]
 	public Node2D HealthDisplayPoint { get; set; }
 
-    [Export]
-    public Node2D FollowTarget { get; set; }
+    public IEntity FollowTarget { get; set; }
 
 	[Export]
 	public VelocityComponent VelocityComponent { get; set; }
@@ -38,6 +39,9 @@ public partial class Enemy : CharacterBody2D, ITakesDamage
         VelocityComponent.MaxSpeed = ShipData.MaxSpeed;
         Ship.Cannon.ReloadDelay = ShipData.ReloadDuration;
         HealthComponent.MaxHealth = ShipData.MaxHealth;
+        FactionComponent.Faction = ShipData.FactionResource;
+        Ship.GetNode<Sprite2D>("Sprite").Texture = ShipData.BoatImage;
+        
         SetPhysicsProcess(false);
         NavigationServer2D.MapChanged += SyncWithNavigationServer;
         RotationalAlignerComponent.RotationHandler = () => {
@@ -46,6 +50,10 @@ public partial class Enemy : CharacterBody2D, ITakesDamage
 		Ship.CannonAligner.RotationHandler = () => {
 			return (Ship.AimLocation - GlobalPosition).Rotated(-Rotation);
 		};
+
+        ProximityDetectionComponent.EntityOwner = this;
+        ProximityDetectionComponent.EntityDetected += startFollow;
+        ProximityDetectionComponent.EntityLeft += stopFollow;
     }
 
     public void SyncWithNavigationServer(Rid map)
@@ -77,18 +85,31 @@ public partial class Enemy : CharacterBody2D, ITakesDamage
         HealthDisplayPoint.Rotation = -Rotation;
     }
 
-    private void startFollow(Player player)
+    private void startFollow(IEntity entity)
     {
-        FollowTarget = player;
-        shouldFollowPlayer = true;
-        Debug.WriteLine("Following");
+        if (FollowTarget is null && ShipData.ShipType.ShipTypeId != "MERCHANT")
+        {
+            FollowTarget = entity;
+            shouldFollowPlayer = true;
+        }
     }
 
-    private void stopFollow(Player player)
+    private void stopFollow(IEntity entity)
     {
-        FollowTarget = null;
-        shouldFollowPlayer = false;
-        InputVector = Vector2.Zero;
+        if (entity == FollowTarget)
+        {
+            FollowTarget = null;
+            shouldFollowPlayer = false;
+            InputVector = Vector2.Zero;
+
+            var nextFollowTarget = ProximityDetectionComponent.GetNextEntityInProximity();
+
+            if (nextFollowTarget is not null)
+            {
+                startFollow(nextFollowTarget);
+            }
+        }
+
     }
 
     private void followPlayer()
@@ -109,6 +130,7 @@ public partial class Enemy : CharacterBody2D, ITakesDamage
             Ship.Fire();
         }
     }
+
     public void TakeDamage(int damage)
     {
 		HealthComponent.TakeDamage(1);
@@ -116,5 +138,18 @@ public partial class Enemy : CharacterBody2D, ITakesDamage
         {
             QueueFree();
         }
+
+        if (HealthComponent.CurrentHealth / (float)HealthComponent.MaxHealth <= 0.5 && ShipData.DamagedBoatImage is not null)
+        {
+            Ship.GetNode<Sprite2D>("Sprite").Texture = ShipData.DamagedBoatImage;
+        }
     }
+
+    public FactionResource GetFaction() => FactionComponent.Faction;
+
+    public bool IsHostileWith(IEntity entity)
+    {
+        return !entity.IsInFaction(GetFaction());
+    }
+
 }

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b3n7ta8ujaggu"]
+
+[ext_resource type="Script" path="res://Features/Factions/Resources/ShipTypes/ShipType.cs" id="1_5sfuj"]
+
+[resource]
+script = ExtResource("1_5sfuj")
+ShipTypeId = "PIRATE"
+ShipTypeName = "Pirate"
+MoneyLootFactor = 2.0
+WoodLootFactor = 1.0
+CannonballLootFactor = 4.0
+FoodLootFactor = 3.0

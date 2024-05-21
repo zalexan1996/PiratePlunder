@@ -1,14 +1,18 @@
 using Godot;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 
 [Tool]
 public partial class ProximityDetectionComponent : Area2D
 {
-	[Signal]
-	public delegate void PlayerDetectedEventHandler(Player player);
-	[Signal]
-	public delegate void PlayerLeftEventHandler(Player player);
+	public event EntityDetectedEventHandler EntityDetected;
+	public event EntityLeftEventHandler EntityLeft;
+	public delegate void EntityDetectedEventHandler(IEntity entity);
+	public delegate void EntityLeftEventHandler(IEntity entity);
 
 	[Export]
 	public float DetectionRadius { get; set; } = 150f;
@@ -16,6 +20,9 @@ public partial class ProximityDetectionComponent : Area2D
 	[Export]
 	public CollisionShape2D CollisionShape2D { get; set; }
 
+	public IEntity EntityOwner { get; set; }
+
+	private ICollection<IEntity> EntitiesInProximity = new Collection<IEntity>();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -30,26 +37,40 @@ public partial class ProximityDetectionComponent : Area2D
 
 	private void bodyEntered(Node2D body)
 	{
-		var player = body as Player;
+		var entity = body as IEntity;
 
-		if (player is null)
+		if (entity is null || !EntityOwner.IsHostileWith(entity))
 		{
 			return;
 		}
 
-		EmitSignal(SignalName.PlayerDetected, player);
-        Debug.WriteLine(body.Name);
+		EntityDetected?.Invoke(entity);
+		Debug.WriteLine("Body entiter");
+
+		if (!EntitiesInProximity.Contains(entity))
+		{
+			EntitiesInProximity.Add(entity);
+		}
 	}
 
 	private void bodyExited(Node2D body)
 	{
-		var player = body as Player;
+		var entity = body as IEntity;
 
-		if (player is null)
+		if (entity is null || !EntityOwner.IsHostileWith(entity))
 		{
 			return;
 		}
 
-		EmitSignal(SignalName.PlayerLeft, player);
+		if (EntitiesInProximity.Contains(entity))
+		{
+			EntitiesInProximity.Remove(entity);
+		}
+		EntityLeft?.Invoke(entity);
+	}
+
+	public IEntity GetNextEntityInProximity()
+	{
+		return EntitiesInProximity.FirstOrDefault();
 	}
 }
