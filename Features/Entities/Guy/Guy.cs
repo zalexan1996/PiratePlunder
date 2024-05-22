@@ -12,6 +12,9 @@ public partial class Guy : CharacterBody2D, IEntity
     [Export]
     public FactionComponent FactionComponent { get; set; }
 
+    [Export]
+    public InventoryComponent InventoryComponent { get; set; }
+    
     public FactionResource GetFaction() => FactionComponent.Faction;
 
 

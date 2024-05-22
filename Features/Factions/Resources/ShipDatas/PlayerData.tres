@@ -9,7 +9,7 @@
 script = ExtResource("3_chtfo")
 MaxSpeed = 400.0
 ReloadDuration = 1.5
-MaxHealth = 3
+MaxHealth = 10
 FactionResource = ExtResource("2_hy53q")
 BoatImage = ExtResource("1_4wqy0")
 DamagedBoatImage = ExtResource("2_w37kb")

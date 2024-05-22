@@ -1,12 +1,10 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b2nmkqvgjgen1"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b2nmkqvgjgen1"]
 
 [ext_resource type="Script" path="res://Features/Factions/Resources/ShipTypes/ShipType.cs" id="1_5iiie"]
+[ext_resource type="Resource" uid="uid://bvoy7c4i5m0v7" path="res://Features/Loot/Resources/LootRatios/MerchantLootRatio.tres" id="1_6mohs"]
 
 [resource]
 script = ExtResource("1_5iiie")
 ShipTypeId = "MERCHANT"
 ShipTypeName = "Merchant"
-MoneyLootFactor = 4.0
-WoodLootFactor = 0.0
-CannonballLootFactor = 0.0
-FoodLootFactor = 1.0
+LootRatios = ExtResource("1_6mohs")

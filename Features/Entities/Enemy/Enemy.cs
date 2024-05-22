@@ -6,21 +6,26 @@ public partial class Enemy : CharacterBody2D, IEntity
 {
     [Export]
     public ShipData ShipData { get; set; }
+
 	[Export]
 	public RotationalAlignerComponent RotationalAlignerComponent { get; set; }
 	private IRotationalAlignerComponent _RotationalAlignerComponent => RotationalAlignerComponent;
 
     [Export]
     public FactionComponent FactionComponent { get; set; }
+
 	[Export]
 	public Vector2 InputVector { get; set; } = Vector2.Zero;
+
     [Export]
     public Ship Ship { get; set; }
 
 	[Export]
 	public HealthComponent HealthComponent { get; set; }
+
     [Export]
     public NavigationAgent2D NavigationAgent2D { get; set; }
+
 	[Export]
 	public Node2D HealthDisplayPoint { get; set; }
 
@@ -28,10 +33,14 @@ public partial class Enemy : CharacterBody2D, IEntity
 
 	[Export]
 	public VelocityComponent VelocityComponent { get; set; }
+
 	private IVelocityComponent VelocityInterface => VelocityComponent;
+
     [Export]
     public ProximityDetectionComponent ProximityDetectionComponent { get; set; }
 
+    [Export]
+    public InventoryComponent InventoryComponent { get; set; }
     private bool shouldFollowPlayer = false;
     private float navUpdateDelay = 0.0f;
     public override void _Ready()
@@ -136,6 +145,7 @@ public partial class Enemy : CharacterBody2D, IEntity
 		HealthComponent.TakeDamage(1);
         if (HealthComponent.IsDead())
         {
+            GetTree().GetAutoLoad().SpawnerService.SpawnWreckage(GlobalPosition, Rotation, ShipData.ShipType.LootRatios);
             QueueFree();
         }
 

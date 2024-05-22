@@ -1,4 +1,8 @@
-
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using Godot;
 
 public partial class Player : CharacterBody2D, IEntity
@@ -29,16 +33,23 @@ public partial class Player : CharacterBody2D, IEntity
     [Export]
     public Ship Ship { get; set; }
 
+    [Export]
+    public InventoryComponent InventoryComponent { get; set; }
+    
 	[Export]
 	public VelocityComponent VelocityComponent { get; set; }
 	private IVelocityComponent VelocityInterface => VelocityComponent;
+
+    private ICollection<IInteractable> interactablesInRange = new Collection<IInteractable>();
+
     public override void _Ready()
     {
         VelocityComponent.MaxSpeed = ShipData.MaxSpeed;
         Ship.Cannon.ReloadDelay = ShipData.ReloadDuration;
         HealthComponent.MaxHealth = ShipData.MaxHealth;
         HealthComponent.CurrentHealth = ShipData.MaxHealth;
-        
+        //HealthComponent.ResetHealth();
+
         FactionComponent.Faction = ShipData.FactionResource;
         Ship.GetNode<Sprite2D>("Sprite").Texture = ShipData.BoatImage;
         PlayerInputComponent.Fire += onFire;
@@ -51,6 +62,7 @@ public partial class Player : CharacterBody2D, IEntity
 		};
 
         
+        base._Ready();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -72,6 +84,24 @@ public partial class Player : CharacterBody2D, IEntity
         base._PhysicsProcess(delta);
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionReleased("Interact") && interactablesInRange.Any())
+        {
+            var firstInteractable = interactablesInRange.First();
+
+            if (firstInteractable.CanInteract())
+            {
+                firstInteractable.Interact(this);
+            }
+        }
+
+        if (@event.IsActionReleased("Print"))
+        {
+            InventoryComponent.Print();
+        }
+    }
+
     private void onFire()
     {
         Ship.Fire();
@@ -87,6 +117,28 @@ public partial class Player : CharacterBody2D, IEntity
         if (HealthComponent.CurrentHealth / (float)HealthComponent.MaxHealth <= 0.5 && ShipData.DamagedBoatImage is not null)
         {
             Ship.GetNode<Sprite2D>("Sprite").Texture = ShipData.DamagedBoatImage;
+        }
+    }
+
+    private void onInteractionAreaBodyEntered(Node2D node)
+    {
+        var interactable = node as IInteractable;
+
+        if (interactable is not null && !interactablesInRange.Contains(interactable))
+        {
+            interactablesInRange.Add(interactable);
+            interactable.ShowInteractText();
+        }
+    }
+
+    private void onInteractionAreaBodyExited(Node2D node)
+    {
+        var interactable = node as IInteractable;
+
+        if (interactable is not null && interactablesInRange.Contains(interactable))
+        {
+            interactable.HideInteractText();
+            interactablesInRange.Remove(interactable);
         }
     }
 

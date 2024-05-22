@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cpkvubti4xyqk"]
+[gd_scene load_steps=16 format=3 uid="uid://cpkvubti4xyqk"]
 
 [ext_resource type="Texture2D" uid="uid://cf40fb6yxe4ey" path="res://Assets/guy.png" id="1_a6yql"]
 [ext_resource type="Script" path="res://Features/Entities/Guy/Guy.cs" id="1_oditk"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dl8hdyt0ejw4w" path="res://Features/Shared/Components/Health/HealthComponent.tscn" id="4_nuuol"]
 [ext_resource type="PackedScene" uid="uid://b3l0nttq4kqhb" path="res://Features/Factions/Components/FactionComponent.tscn" id="5_c6030"]
 [ext_resource type="Resource" uid="uid://1rilm6wvqih0" path="res://Features/Factions/Resources/Factions/EnglishFaction.tres" id="6_lg20s"]
+[ext_resource type="PackedScene" uid="uid://ladkelwr2eu0" path="res://Features/Loot/Components/InventoryComponent.tscn" id="7_x2lc3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ou2t5"]
 atlas = ExtResource("1_a6yql")
@@ -60,13 +61,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_qkifx"]
 radius = 26.0
 
-[node name="Guy" type="CharacterBody2D" node_paths=PackedStringArray("HealthComponent", "FactionComponent")]
+[node name="Guy" type="CharacterBody2D" node_paths=PackedStringArray("HealthComponent", "FactionComponent", "InventoryComponent")]
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("1_oditk")
 HealthComponent = NodePath("HealthComponent")
 BloodExplosionScene = ExtResource("2_sd6ur")
 FactionComponent = NodePath("FactionComponent")
+InventoryComponent = NodePath("InventoryComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
@@ -84,3 +86,5 @@ CurrentHealth = 1
 
 [node name="FactionComponent" parent="." instance=ExtResource("5_c6030")]
 Faction = ExtResource("6_lg20s")
+
+[node name="InventoryComponent" parent="." instance=ExtResource("7_x2lc3")]

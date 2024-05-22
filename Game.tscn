@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcbrtqxv7utns"]
+[gd_scene load_steps=10 format=3 uid="uid://bcbrtqxv7utns"]
 
 [ext_resource type="PackedScene" uid="uid://bbkty2i1bx21k" path="res://Levels/TestLevel1.tscn" id="1_cru32"]
 [ext_resource type="PackedScene" uid="uid://d2x0c3e01mf6u" path="res://Features/Entities/Player/Player.tscn" id="3_onsmq"]
 [ext_resource type="PackedScene" uid="uid://bmp8eso5aimbq" path="res://Features/Entities/Enemy/Enemy.tscn" id="3_xmmc4"]
 [ext_resource type="PackedScene" uid="uid://cpkvubti4xyqk" path="res://Features/Entities/Guy/Guy.tscn" id="4_0darb"]
 [ext_resource type="Resource" uid="uid://2al8clk34ayk" path="res://Features/Factions/Resources/ShipDatas/PirateData.tres" id="6_bqjx3"]
+[ext_resource type="PackedScene" uid="uid://ddb0cgtobesxc" path="res://Features/Entities/Ship/Wreckage/Wreckage.tscn" id="7_cbbwk"]
 [ext_resource type="Resource" uid="uid://82lg6xcqm3bs" path="res://Features/Factions/Resources/ShipDatas/SpanishMerchant.tres" id="7_ylhcw"]
+[ext_resource type="Resource" uid="uid://d6u1nyngp8x1" path="res://Features/Loot/Resources/LootRatios/PirateLootRatio.tres" id="8_sbfkf"]
+[ext_resource type="PackedScene" uid="uid://c533kcoaw57mu" path="res://Features/UI/InventoryDisplay/InventoryDisplay.tscn" id="9_5c7ot"]
 
 [node name="Game" type="Node2D"]
 
@@ -59,5 +62,19 @@ ShipData = ExtResource("6_bqjx3")
 [node name="Enemy7" parent="." instance=ExtResource("3_xmmc4")]
 position = Vector2(-203, 979)
 ShipData = ExtResource("7_ylhcw")
+
+[node name="Wreckage" parent="." instance=ExtResource("7_cbbwk")]
+position = Vector2(502, 30)
+LootRatios = ExtResource("8_sbfkf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InventoryDisplay" parent="CanvasLayer" node_paths=PackedStringArray("Player") instance=ExtResource("9_5c7ot")]
+visible = false
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 5.0
+offset_bottom = 5.0
+Player = NodePath("../../Player")
 
 [editable path="Player"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d2x0c3e01mf6u"]
+[gd_scene load_steps=15 format=3 uid="uid://d2x0c3e01mf6u"]
 
 [ext_resource type="PackedScene" uid="uid://dnla3dfobu771" path="res://Features/Entities/Ship/Ship.tscn" id="1_u33io"]
 [ext_resource type="Script" path="res://Features/Entities/Player/Player.cs" id="2_5ajrn"]
@@ -11,38 +11,30 @@
 [ext_resource type="PackedScene" uid="uid://bc5rf0desi28c" path="res://Features/UI/HealthDisplay/HealthDisplayComponent.tscn" id="9_cix2y"]
 [ext_resource type="PackedScene" uid="uid://b3l0nttq4kqhb" path="res://Features/Factions/Components/FactionComponent.tscn" id="10_yvdp0"]
 [ext_resource type="Resource" uid="uid://lxw8od7axaqq" path="res://Features/Factions/Resources/Factions/PlayerFaction.tres" id="11_4q34k"]
+[ext_resource type="PackedScene" uid="uid://ladkelwr2eu0" path="res://Features/Loot/Components/InventoryComponent.tscn" id="12_p365k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gda4w"]
 height = 82.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "FactionComponent", "HealthComponent", "HealthDisplayPoint", "PlayerInputComponent", "Ship", "VelocityComponent")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_fbewf"]
+radius = 82.2982
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "FactionComponent", "HealthComponent", "HealthDisplayPoint", "PlayerInputComponent", "Ship", "InventoryComponent", "VelocityComponent")]
 collision_layer = 10
 collision_mask = 27
 script = ExtResource("2_5ajrn")
 ShipData = ExtResource("2_jonkx")
-RotationalAlignerComponent = NodePath("RotationalAlignerComponent")
-FactionComponent = NodePath("FactionComponent")
-HealthComponent = NodePath("HealthComponent")
+RotationalAlignerComponent = NodePath("Components/RotationalAlignerComponent")
+FactionComponent = NodePath("Components/FactionComponent")
+HealthComponent = NodePath("Components/HealthComponent")
 HealthDisplayPoint = NodePath("HealthDisplayPoint")
-PlayerInputComponent = NodePath("PlayerInputComponent")
+PlayerInputComponent = NodePath("Components/PlayerInputComponent")
 Ship = NodePath("Ship")
-VelocityComponent = NodePath("VelocityComponent")
+InventoryComponent = NodePath("Components/InventoryComponent")
+VelocityComponent = NodePath("Components/VelocityComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_gda4w")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_rf1fb")
-autoplay = true
-
-[node name="PlayerInputComponent" parent="." instance=ExtResource("3_hn4sd")]
-
-[node name="VelocityComponent" parent="." instance=ExtResource("5_1thuy")]
-
-[node name="HealthComponent" parent="." instance=ExtResource("6_wteoy")]
-
-[node name="RotationalAlignerComponent" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("7_lrmdq")]
-Target = NodePath("..")
 
 [node name="Ship" parent="." instance=ExtResource("1_u33io")]
 
@@ -53,10 +45,37 @@ Target = NodePath("..")
 [node name="HealthDisplayComponent" parent="HealthDisplayPoint" node_paths=PackedStringArray("HealthComponent") instance=ExtResource("9_cix2y")]
 offset_top = -80.0
 offset_bottom = -76.0
-HealthComponent = NodePath("../../HealthComponent")
+HealthComponent = NodePath("../../Components/HealthComponent")
 
 [node name="HealthDisplayAligner" parent="HealthDisplayPoint/HealthDisplayComponent" node_paths=PackedStringArray("Target") instance=ExtResource("7_lrmdq")]
 Target = NodePath("../..")
 
-[node name="FactionComponent" parent="." instance=ExtResource("10_yvdp0")]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_rf1fb")
+autoplay = true
+
+[node name="Components" type="Node" parent="."]
+
+[node name="InventoryComponent" parent="Components" instance=ExtResource("12_p365k")]
+
+[node name="FactionComponent" parent="Components" instance=ExtResource("10_yvdp0")]
 Faction = ExtResource("11_4q34k")
+
+[node name="RotationalAlignerComponent" parent="Components" node_paths=PackedStringArray("Target") instance=ExtResource("7_lrmdq")]
+Target = NodePath("../..")
+
+[node name="HealthComponent" parent="Components" instance=ExtResource("6_wteoy")]
+
+[node name="VelocityComponent" parent="Components" instance=ExtResource("5_1thuy")]
+
+[node name="PlayerInputComponent" parent="Components" instance=ExtResource("3_hn4sd")]
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_fbewf")
+
+[connection signal="body_entered" from="InteractionArea" to="." method="onInteractionAreaBodyEntered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="onInteractionAreaBodyExited"]
