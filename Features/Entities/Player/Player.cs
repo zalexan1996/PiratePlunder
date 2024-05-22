@@ -34,6 +34,9 @@ public partial class Player : CharacterBody2D, IEntity
     public Ship Ship { get; set; }
 
     [Export]
+    public Label RepairLabel { get; set; }
+
+    [Export]
     public InventoryComponent InventoryComponent { get; set; }
     
 	[Export]
@@ -48,6 +51,7 @@ public partial class Player : CharacterBody2D, IEntity
         Ship.Cannon.ReloadDelay = ShipData.ReloadDuration;
         HealthComponent.MaxHealth = ShipData.MaxHealth;
         HealthComponent.CurrentHealth = ShipData.MaxHealth;
+        HealthComponent.HealthChanged += onHealthChanged;
         //HealthComponent.ResetHealth();
 
         FactionComponent.Faction = ShipData.FactionResource;
@@ -65,6 +69,25 @@ public partial class Player : CharacterBody2D, IEntity
         base._Ready();
     }
 
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionPressed("Repair") && !HealthComponent.IsMaxHealth())
+        {
+            if (InventoryComponent.Wood > 0)
+            {
+                HealthComponent.Heal(1 * (float)delta);
+                InventoryComponent.Wood--;
+            }
+        }
+        if (HealthComponent.CurrentHealth <= HealthComponent.MaxHealth / 2f && InventoryComponent.Wood >= 20)
+        {
+            RepairLabel.Visible = true;
+        }
+        else
+        {
+            RepairLabel.Visible = false;
+        }
+    }
     public override void _PhysicsProcess(double delta)
     {
 		Vector2 direction = InputVector;
@@ -100,6 +123,7 @@ public partial class Player : CharacterBody2D, IEntity
         {
             InventoryComponent.Print();
         }
+
     }
 
     private void onFire()
@@ -114,10 +138,6 @@ public partial class Player : CharacterBody2D, IEntity
             QueueFree();
         }
 
-        if (HealthComponent.CurrentHealth / (float)HealthComponent.MaxHealth <= 0.5 && ShipData.DamagedBoatImage is not null)
-        {
-            Ship.GetNode<Sprite2D>("Sprite").Texture = ShipData.DamagedBoatImage;
-        }
     }
 
     private void onInteractionAreaBodyEntered(Node2D node)
@@ -139,6 +159,19 @@ public partial class Player : CharacterBody2D, IEntity
         {
             interactable.HideInteractText();
             interactablesInRange.Remove(interactable);
+        }
+    }
+
+    private void onHealthChanged(float currentHealth, float maxHealth)
+    {
+        
+        if (currentHealth / (float)maxHealth <= 0.5 && ShipData.DamagedBoatImage is not null)
+        {
+            Ship.GetNode<Sprite2D>("Sprite").Texture = ShipData.DamagedBoatImage;
+        }
+        else
+        {
+            Ship.GetNode<Sprite2D>("Sprite").Texture = ShipData.BoatImage;
         }
     }
 

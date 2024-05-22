@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource("1_5sfuj")
 ShipTypeId = "PIRATE"
-ShipTypeName = "Pirate"
+ShipTypeName = "Sloop"
 LootRatios = ExtResource("1_5eb1m")

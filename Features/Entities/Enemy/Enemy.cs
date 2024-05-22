@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using Godot;
 
-public partial class Enemy : CharacterBody2D, IEntity
+public partial class Enemy : CharacterBody2D, IEntity, IHasMouseOverDisplay
 {
     [Export]
     public ShipData ShipData { get; set; }
@@ -41,6 +41,9 @@ public partial class Enemy : CharacterBody2D, IEntity
 
     [Export]
     public InventoryComponent InventoryComponent { get; set; }
+
+    [Export]
+    public EnemyInfoWidget EnemyInfoWidget { get; set; }
     private bool shouldFollowPlayer = false;
     private float navUpdateDelay = 0.0f;
     public override void _Ready()
@@ -118,7 +121,6 @@ public partial class Enemy : CharacterBody2D, IEntity
                 startFollow(nextFollowTarget);
             }
         }
-
     }
 
     private void followPlayer()
@@ -146,6 +148,7 @@ public partial class Enemy : CharacterBody2D, IEntity
         if (HealthComponent.IsDead())
         {
             GetTree().GetAutoLoad().SpawnerService.SpawnWreckage(GlobalPosition, Rotation, ShipData.ShipType.LootRatios);
+            GetTree().GetAutoLoad().SpawnerService.SpawnShockwave(GlobalPosition);
             QueueFree();
         }
 
@@ -162,4 +165,13 @@ public partial class Enemy : CharacterBody2D, IEntity
         return !entity.IsInFaction(GetFaction());
     }
 
+    public void ShowMouseOverDisplay()
+    {
+        EnemyInfoWidget.Show();
+    }
+
+    public void HideMouseOverDisplay()
+    {
+        // EnemyInfoWidget.Visible = FollowTarget is not null;
+    }
 }

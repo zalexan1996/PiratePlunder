@@ -13,7 +13,19 @@ public partial class InventoryComponent : Node
 	public int Food { get; set; } = 0;
 	
 	[Export]
-	public int Wood { get; set; } = 0;
+	public int Wood
+	{
+		get
+		{
+			return _wood;
+		}
+		set
+		{
+			_wood = value;
+			EmitSignal(SignalName.InventoryChanged, Cannonballs, Food, Wood, Gold);
+		}
+	}
+	private int _wood = 0;
 	
 	[Export]
 	public int Gold { get; set; } = 0;

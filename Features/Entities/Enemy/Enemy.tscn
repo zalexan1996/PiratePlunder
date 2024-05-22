@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bmp8eso5aimbq"]
+[gd_scene load_steps=17 format=3 uid="uid://bmp8eso5aimbq"]
 
 [ext_resource type="Script" path="res://Features/Entities/Enemy/Enemy.cs" id="1_5xsnm"]
 [ext_resource type="PackedScene" uid="uid://dnla3dfobu771" path="res://Features/Entities/Ship/Ship.tscn" id="1_8yqhl"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bc5rf0desi28c" path="res://Features/UI/HealthDisplay/HealthDisplayComponent.tscn" id="8_6q16g"]
 [ext_resource type="PackedScene" uid="uid://b3l0nttq4kqhb" path="res://Features/Factions/Components/FactionComponent.tscn" id="9_bf00v"]
 [ext_resource type="Resource" uid="uid://dbietostorrer" path="res://Features/Factions/Resources/Factions/PirateFaction.tres" id="10_r7dkk"]
+[ext_resource type="PackedScene" uid="uid://12lo6jmmvvog" path="res://Features/UI/EnemyInfoWidget/EnemyInfoWidget.tscn" id="12_fjxvq"]
 [ext_resource type="PackedScene" uid="uid://ladkelwr2eu0" path="res://Features/Loot/Components/InventoryComponent.tscn" id="13_di5mv"]
 
 [sub_resource type="Resource" id="Resource_ymror"]
@@ -27,9 +28,10 @@ DamagedBoatImage = ExtResource("2_rvvae")
 radius = 22.0
 height = 94.0
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "FactionComponent", "Ship", "HealthComponent", "NavigationAgent2D", "HealthDisplayPoint", "VelocityComponent", "ProximityDetectionComponent", "InventoryComponent")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("RotationalAlignerComponent", "FactionComponent", "Ship", "HealthComponent", "NavigationAgent2D", "HealthDisplayPoint", "VelocityComponent", "ProximityDetectionComponent", "InventoryComponent", "EnemyInfoWidget")]
 collision_layer = 8
 collision_mask = 27
+input_pickable = true
 script = ExtResource("1_5xsnm")
 ShipData = SubResource("Resource_ymror")
 RotationalAlignerComponent = NodePath("RotationalAlignerComponent")
@@ -41,6 +43,7 @@ HealthDisplayPoint = NodePath("HealthDisplayPoint")
 VelocityComponent = NodePath("VelocityComponent")
 ProximityDetectionComponent = NodePath("ProximityDetectionComponent")
 InventoryComponent = NodePath("InventoryComponent")
+EnemyInfoWidget = NodePath("HealthDisplayPoint/EnemyInfoWidget")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_sfw2m")
@@ -70,9 +73,18 @@ HealthComponent = NodePath("../HealthComponent")
 
 [node name="HealthComponent" parent="HealthDisplayPoint" instance=ExtResource("3_o47hu")]
 
+[node name="EnemyInfoWidget" parent="HealthDisplayPoint" node_paths=PackedStringArray("Enemy") instance=ExtResource("12_fjxvq")]
+visible = false
+offset_top = -135.0
+offset_bottom = -135.0
+Enemy = NodePath("../..")
+
 [node name="FactionComponent" parent="." instance=ExtResource("9_bf00v")]
 Faction = ExtResource("10_r7dkk")
 
 [node name="InventoryComponent" parent="." instance=ExtResource("13_di5mv")]
+
+[connection signal="mouse_entered" from="." to="." method="ShowMouseOverDisplay"]
+[connection signal="mouse_exited" from="." to="." method="HideMouseOverDisplay"]
 
 [editable path="Ship"]

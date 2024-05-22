@@ -26,7 +26,7 @@ public partial class HealthDisplayComponent : ProgressBar
 	{
 	}
 
-	public void UpdateValue(int newValue, int maxHealth)
+	public void UpdateValue(float newValue, float maxHealth)
 	{
 		MaxValue = maxHealth;
 		Value = newValue;
@@ -35,7 +35,7 @@ public partial class HealthDisplayComponent : ProgressBar
 		styleBox.BgColor = new Color(Mathf.Lerp(1f, 0f, (float)Value / (float)MaxValue), Mathf.Lerp(0f, 1f, (float)Value / (float)MaxValue), 0);
 	}
 
-	private void onHealthChange(int newHealth, int maxHealth)
+	private void onHealthChange(float newHealth, float maxHealth)
 	{
 		UpdateValue(newHealth, maxHealth);
 		Show();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ftfvh0h6tjjd"]
+[gd_scene load_steps=18 format=3 uid="uid://ftfvh0h6tjjd"]
 
 [ext_resource type="Script" path="res://Features/Fx/Explosion.cs" id="1_ldama"]
 [ext_resource type="Texture2D" uid="uid://dthkefk6f75bm" path="res://Assets/Effects/Explosions/explosion-6.png" id="2_r0uvf"]
@@ -71,6 +71,49 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_waavn"]
 radius = 32.573
 
+[sub_resource type="Gradient" id="Gradient_jbtfq"]
+offsets = PackedFloat32Array(0, 0.0929204, 0.455752)
+colors = PackedColorArray(1, 1, 1, 1, 0.639344, 0.639344, 0.639344, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l7idq"]
+gradient = SubResource("Gradient_jbtfq")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_ocs15"]
+resource_name = "light"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.3, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:texture_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 4.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o2wer"]
+_data = {
+"light": SubResource("Animation_ocs15")
+}
+
 [node name="Explosion" type="Node2D" node_paths=PackedStringArray("AnimatedSprite2D")]
 script = ExtResource("1_ldama")
 AnimatedSprite2D = NodePath("AnimatedSprite2D")
@@ -95,6 +138,18 @@ stream = ExtResource("5_tjjem")
 autoplay = true
 max_distance = 1500.0
 attenuation = 1.56917
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.793409, 0.468089, 1.92523e-07, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_l7idq")
+texture_scale = 4.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o2wer")
+}
+autoplay = "light"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="onAnimationFinished"]
 [connection signal="body_entered" from="Area2D" to="." method="onBodyOverlap"]
