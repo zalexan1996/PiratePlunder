@@ -32,7 +32,7 @@ public class EnterTradeRouteBehavior : IBehavior
         Controls.InputVector = Controls.Ship.GlobalPosition.DirectionTo(nextPosition);
         Controls.Ship.AimLocation = nextPosition;
 
-        if (TargetPoint.GlobalPosition.DistanceTo(Controls.GlobalPosition) < 50)
+        if (TargetPoint.GlobalPosition.DistanceTo(Controls.GlobalPosition) < 250)
         {
             TradeRouteReached?.Invoke(this);
         }   
