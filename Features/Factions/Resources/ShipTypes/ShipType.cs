@@ -10,4 +10,7 @@ public partial class ShipType : Resource
 
     [Export]
     public LootRatioResource LootRatios { get; set; }
+
+    [Export]
+    public PackedScene AIControllerScene { get; set; }
 }

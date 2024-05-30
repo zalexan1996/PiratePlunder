@@ -73,4 +73,9 @@ public partial class ProximityDetectionComponent : Area2D
 	{
 		return EntitiesInProximity.FirstOrDefault();
 	}
+
+	public IEntity GetNextHostileEntityInProximity()
+	{
+		return EntitiesInProximity.FirstOrDefault(e => e.IsHostileWith(EntityOwner));
+	}
 }

@@ -1,14 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://bcbrtqxv7utns"]
+[gd_scene load_steps=11 format=3 uid="uid://bcbrtqxv7utns"]
 
 [ext_resource type="PackedScene" uid="uid://bbkty2i1bx21k" path="res://Levels/TestLevel1.tscn" id="1_cru32"]
 [ext_resource type="PackedScene" uid="uid://d2x0c3e01mf6u" path="res://Features/Entities/Player/Player.tscn" id="3_onsmq"]
 [ext_resource type="PackedScene" uid="uid://bmp8eso5aimbq" path="res://Features/Entities/Enemy/Enemy.tscn" id="3_xmmc4"]
-[ext_resource type="PackedScene" uid="uid://cpkvubti4xyqk" path="res://Features/Entities/Guy/Guy.tscn" id="4_0darb"]
-[ext_resource type="Resource" uid="uid://2al8clk34ayk" path="res://Features/Factions/Resources/ShipDatas/PirateData.tres" id="6_bqjx3"]
 [ext_resource type="PackedScene" uid="uid://ddb0cgtobesxc" path="res://Features/Entities/Ship/Wreckage/Wreckage.tscn" id="7_cbbwk"]
 [ext_resource type="Resource" uid="uid://82lg6xcqm3bs" path="res://Features/Factions/Resources/ShipDatas/SpanishMerchant.tres" id="7_ylhcw"]
 [ext_resource type="Resource" uid="uid://d6u1nyngp8x1" path="res://Features/Loot/Resources/LootRatios/PirateLootRatio.tres" id="8_sbfkf"]
 [ext_resource type="PackedScene" uid="uid://c533kcoaw57mu" path="res://Features/UI/InventoryDisplay/InventoryDisplay.tscn" id="9_5c7ot"]
+[ext_resource type="PackedScene" uid="uid://cn7jfugeapmyd" path="res://Features/Trade/TradeRoute/TradeRoute.tscn" id="10_xvilb"]
+[ext_resource type="Resource" uid="uid://d20h21slxoxd0" path="res://Features/Factions/Resources/Factions/SpanishFaction.tres" id="11_v36g8"]
+[ext_resource type="PackedScene" uid="uid://bcqylvf4rotop" path="res://Features/Trade/TradeRoute/TradeRoutePoint.tscn" id="12_dklv1"]
 
 [node name="Game" type="Node2D"]
 
@@ -17,50 +18,8 @@
 [node name="Player" parent="." instance=ExtResource("3_onsmq")]
 position = Vector2(750, -43)
 
-[node name="Guy" parent="." instance=ExtResource("4_0darb")]
-position = Vector2(348, 196)
-
-[node name="Guy2" parent="." instance=ExtResource("4_0darb")]
-position = Vector2(88, -249)
-
-[node name="Guy3" parent="." instance=ExtResource("4_0darb")]
-position = Vector2(1169, 509)
-
-[node name="Guy4" parent="." instance=ExtResource("4_0darb")]
-position = Vector2(1789, 431)
-
-[node name="Guy5" parent="." instance=ExtResource("4_0darb")]
-position = Vector2(1436, 778)
-
-[node name="Guy6" parent="." instance=ExtResource("4_0darb")]
-position = Vector2(1794, 1067)
-
-[node name="Enemy" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(1372, -404)
-ShipData = ExtResource("6_bqjx3")
-
-[node name="Enemy2" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(1377, -631)
-ShipData = ExtResource("6_bqjx3")
-
 [node name="Enemy3" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(-406, 957)
-ShipData = ExtResource("7_ylhcw")
-
-[node name="Enemy4" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(-303, 805)
-ShipData = ExtResource("7_ylhcw")
-
-[node name="Enemy5" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(1453, -515)
-ShipData = ExtResource("6_bqjx3")
-
-[node name="Enemy6" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(1287, -528)
-ShipData = ExtResource("6_bqjx3")
-
-[node name="Enemy7" parent="." instance=ExtResource("3_xmmc4")]
-position = Vector2(-203, 979)
+position = Vector2(2643, -1105)
 ShipData = ExtResource("7_ylhcw")
 
 [node name="Wreckage" parent="." instance=ExtResource("7_cbbwk")]
@@ -70,11 +29,25 @@ LootRatios = ExtResource("8_sbfkf")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="InventoryDisplay" parent="CanvasLayer" node_paths=PackedStringArray("Player") instance=ExtResource("9_5c7ot")]
-visible = false
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 5.0
 offset_bottom = 5.0
 Player = NodePath("../../Player")
+
+[node name="TradeRoute" parent="." instance=ExtResource("10_xvilb")]
+position = Vector2(735, 3899)
+Faction = ExtResource("11_v36g8")
+
+[node name="TradeRoutePoint" parent="TradeRoute" instance=ExtResource("12_dklv1")]
+
+[node name="TradeRoutePoint2" parent="TradeRoute" instance=ExtResource("12_dklv1")]
+position = Vector2(8581, 1185)
+
+[node name="TradeRoutePoint3" parent="TradeRoute" instance=ExtResource("12_dklv1")]
+position = Vector2(8510, -4343)
+
+[node name="TradeRoutePoint4" parent="TradeRoute" instance=ExtResource("12_dklv1")]
+position = Vector2(1540, -3219)
 
 [editable path="Player"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dv7ebfsyu11y7"]
+
+[ext_resource type="Script" path="res://Features/AI/AI Controller/ViolentAiController.cs" id="1_44hqk"]
+
+[node name="ViolentAiController" type="Node"]
+script = ExtResource("1_44hqk")

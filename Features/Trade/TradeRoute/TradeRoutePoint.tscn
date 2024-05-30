@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcqylvf4rotop"]
+
+[ext_resource type="Texture2D" uid="uid://bwep2al4fvp2s" path="res://Assets/UI/crosshairs_tilesheet_white.png" id="1_6ncjk"]
+[ext_resource type="Script" path="res://Features/Trade/TradeRoute/TradeRoutePoint.cs" id="2_22lxd"]
+
+[node name="TradeRoutePoint" type="Sprite2D"]
+self_modulate = Color(1, 0.0941176, 0.462745, 1)
+position = Vector2(0, 2)
+texture = ExtResource("1_6ncjk")
+hframes = 20
+vframes = 10
+frame = 26
+script = ExtResource("2_22lxd")

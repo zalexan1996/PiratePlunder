@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pirate Plunder", "Pirate Plunder.csproj", "{13D69B65-E15F-4592-9768-49B7DA7D61BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pirate Plunder", "Pirate Plunder.csproj", "{42C4D548-0227-49A2-ADBE-4130D8690DF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{13D69B65-E15F-4592-9768-49B7DA7D61BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13D69B65-E15F-4592-9768-49B7DA7D61BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13D69B65-E15F-4592-9768-49B7DA7D61BB}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{13D69B65-E15F-4592-9768-49B7DA7D61BB}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{13D69B65-E15F-4592-9768-49B7DA7D61BB}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{13D69B65-E15F-4592-9768-49B7DA7D61BB}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{42C4D548-0227-49A2-ADBE-4130D8690DF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42C4D548-0227-49A2-ADBE-4130D8690DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42C4D548-0227-49A2-ADBE-4130D8690DF3}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{42C4D548-0227-49A2-ADBE-4130D8690DF3}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{42C4D548-0227-49A2-ADBE-4130D8690DF3}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{42C4D548-0227-49A2-ADBE-4130D8690DF3}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

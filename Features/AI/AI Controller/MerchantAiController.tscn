@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy0exuaibi7sx"]
+
+[ext_resource type="Script" path="res://Features/AI/AI Controller/MerchantAiController.cs" id="1_0fpl0"]
+
+[node name="MerchantAiController" type="Node"]
+script = ExtResource("1_0fpl0")

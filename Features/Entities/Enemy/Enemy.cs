@@ -7,6 +7,8 @@ public partial class Enemy : CharacterBody2D, IEntity, IHasMouseOverDisplay
     [Export]
     public ShipData ShipData { get; set; }
 
+    public AIController AIController { get; set; }
+
 	[Export]
 	public RotationalAlignerComponent RotationalAlignerComponent { get; set; }
 	private IRotationalAlignerComponent _RotationalAlignerComponent => RotationalAlignerComponent;
@@ -29,7 +31,6 @@ public partial class Enemy : CharacterBody2D, IEntity, IHasMouseOverDisplay
 	[Export]
 	public Node2D HealthDisplayPoint { get; set; }
 
-    public IEntity FollowTarget { get; set; }
 
 	[Export]
 	public VelocityComponent VelocityComponent { get; set; }
@@ -44,8 +45,7 @@ public partial class Enemy : CharacterBody2D, IEntity, IHasMouseOverDisplay
 
     [Export]
     public EnemyInfoWidget EnemyInfoWidget { get; set; }
-    private bool shouldFollowPlayer = false;
-    private float navUpdateDelay = 0.0f;
+
     public override void _Ready()
     {
         VelocityComponent.MaxSpeed = ShipData.MaxSpeed;
@@ -54,8 +54,6 @@ public partial class Enemy : CharacterBody2D, IEntity, IHasMouseOverDisplay
         FactionComponent.Faction = ShipData.FactionResource;
         Ship.GetNode<Sprite2D>("Sprite").Texture = ShipData.BoatImage;
         
-        SetPhysicsProcess(false);
-        NavigationServer2D.MapChanged += SyncWithNavigationServer;
         RotationalAlignerComponent.RotationHandler = () => {
 			return VelocityInterface.CurrentVelocity;
 		};
@@ -64,16 +62,12 @@ public partial class Enemy : CharacterBody2D, IEntity, IHasMouseOverDisplay
 		};
 
         ProximityDetectionComponent.EntityOwner = this;
-        ProximityDetectionComponent.EntityDetected += startFollow;
-        ProximityDetectionComponent.EntityLeft += stopFollow;
+
+        AIController = ShipData.ShipType.AIControllerScene.Instantiate<AIController>();
+        AIController.Controls = this;
+        AddChild(AIController);
     }
 
-    public void SyncWithNavigationServer(Rid map)
-    {
-        var rng = new RandomNumberGenerator();
-        navUpdateDelay = rng.RandiRange(1, 100);
-        SetPhysicsProcess(true);
-    }
 
     public override void _PhysicsProcess(double delta)
     {
@@ -88,59 +82,12 @@ public partial class Enemy : CharacterBody2D, IEntity, IHasMouseOverDisplay
 		Velocity = VelocityInterface.CurrentVelocity;
 		MoveAndSlide();
 
-        if (FollowTarget is not null && Ship is not null && shouldFollowPlayer)
-        {
-            followPlayer();
-        }
 
         Ship.SetTrailIntensity(Mathf.Lerp(0, 1, Velocity.Length() / VelocityComponent.MaxSpeed));
         HealthDisplayPoint.Rotation = -Rotation;
     }
 
-    private void startFollow(IEntity entity)
-    {
-        if (FollowTarget is null && ShipData.ShipType.ShipTypeId != "MERCHANT")
-        {
-            FollowTarget = entity;
-            shouldFollowPlayer = true;
-        }
-    }
 
-    private void stopFollow(IEntity entity)
-    {
-        if (entity == FollowTarget)
-        {
-            FollowTarget = null;
-            shouldFollowPlayer = false;
-            InputVector = Vector2.Zero;
-
-            var nextFollowTarget = ProximityDetectionComponent.GetNextEntityInProximity();
-
-            if (nextFollowTarget is not null)
-            {
-                startFollow(nextFollowTarget);
-            }
-        }
-    }
-
-    private void followPlayer()
-    {
-        if ((NavigationAgent2D.TargetPosition - FollowTarget.GlobalPosition).Length() > 100 && navUpdateDelay-- <= 0)
-        {
-            NavigationAgent2D.TargetPosition = FollowTarget.GlobalPosition;
-            var rng = new RandomNumberGenerator();
-            navUpdateDelay = rng.RandiRange(1, 100);
-        }
-
-        var nextPosition = NavigationAgent2D.GetNextPathPosition();
-        InputVector = Ship.GlobalPosition.DirectionTo(nextPosition);
-        Ship.AimLocation = FollowTarget.GlobalPosition;
-
-        if (Ship.Cannon.CanFire())
-        {
-            Ship.Fire();
-        }
-    }
 
     public void TakeDamage(int damage)
     {
