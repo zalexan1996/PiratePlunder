@@ -33,6 +33,7 @@ public partial class Wreckage : StaticBody2D, IInteractable
     {
 		LabelPivot.Rotation = -Rotation;
     }
+	
     private void Fade()
 	{
 		Modulate = new Color(Modulate.R, Modulate.G, Modulate.B, Modulate.A - (1f / ExistDuration));

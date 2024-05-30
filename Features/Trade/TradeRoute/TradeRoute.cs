@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 public partial class TradeRoute : Node2D
@@ -12,9 +13,7 @@ public partial class TradeRoute : Node2D
 
     public override void _Ready()
     {
-		Points = GetChildren()
-			.Where(c => c.GetType() == typeof(TradeRoutePoint))
-			.Select(c => (TradeRoutePoint)c)
+		Points = this.SearchForChildren<TradeRoutePoint>()
 			.ToList();
     }
 

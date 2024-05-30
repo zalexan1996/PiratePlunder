@@ -36,7 +36,7 @@ public partial class InventoryComponent : Node
 		Empty();
 
 		var rng = new RandomNumberGenerator();
-		var totalLoot = rng.RandiRange(10, 100);
+		var totalLoot = rng.RandiRange(10, 100) * ratios.LootMultiplier;
 
 		Cannonballs = Mathf.FloorToInt(ratios.Cannonball / ratios.Total * totalLoot);
 		Food = Mathf.FloorToInt(ratios.Food / ratios.Total * totalLoot);

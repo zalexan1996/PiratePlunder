@@ -55,4 +55,5 @@ public partial class Cannon : Node2D
 	{
 		CannonFire.Visible = false;
 	}
+
 }

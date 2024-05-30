@@ -1,6 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbkty2i1bx21k"]
+[gd_scene load_steps=9 format=3 uid="uid://bbkty2i1bx21k"]
 
 [ext_resource type="TileSet" uid="uid://wieicwjhyy2" path="res://Assets/Tilesheets/TileSet_Land.tres" id="1_qqb3f"]
+[ext_resource type="PackedScene" uid="uid://bw7c6nig2kij0" path="res://Features/Trade/Settlement/Settlement.tscn" id="2_rnebr"]
+[ext_resource type="PackedScene" uid="uid://bmp8eso5aimbq" path="res://Features/Entities/Enemy/Enemy.tscn" id="3_4qpc4"]
+[ext_resource type="Resource" uid="uid://82lg6xcqm3bs" path="res://Features/Factions/Resources/ShipDatas/SpanishMerchant.tres" id="4_qls21"]
+[ext_resource type="PackedScene" uid="uid://cn7jfugeapmyd" path="res://Features/Trade/TradeRoute/TradeRoute.tscn" id="7_agc4o"]
+[ext_resource type="Resource" uid="uid://yscnl3tcq5yx" path="res://Features/Factions/Resources/ShipDatas/SpanishNavy.tres" id="7_ir0d8"]
+[ext_resource type="Resource" uid="uid://d20h21slxoxd0" path="res://Features/Factions/Resources/Factions/SpanishFaction.tres" id="8_1dy0o"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ahms2"]
 vertices = PackedVector2Array(-4673, 364, -4674, 365, -4363, 41, -2418, 2273, -2417, 2274, -2775, 2033, 1878, -4820, 1878, -4821, 2213, -4028, 1548, 4488, 1316, 3884, 1317, 3885, -1122, -4390, -932, -3963, -933, -3963, 544, -4203, 74, -4724, -21, -5469, 311, -5511, 1480, -5518, -2837, -5202, -3022, -5400, -2985, -5912, -1872, -5841, -1838, -5497, 7918, -3573, 9620, -3569, 9637, -1641, 7889, -3024, 5085, 3518, 5085, 4285, 4829, 4289, 1115, 3213, 10455, 1490, 10467, 2587, 9454, 4420, 9231, 4803, 7346, 5052, 6592, 5047, 6580, 4057, 10285, 1377, -358, -3301, -308, -3721, 160, -3675, 266, -3391, -1004, 2591, 10408, -554, 10483, 738, 10233, 760, 9828, -1171, -5833, -3456, -5836, -4078, -5551, -4091, 10450, 4386, -6878, 509, -6854, -175, -6143, -186, -6114, -11, -6563, 857, -6862, 831, 3556, -3873, 5132, -3819, 5145, -3178, 3463, -3379, -2642, -4306, -2663, -4800, -1271, -5468, -1250, -4900, -2408, -4209, -5099, -1021, -5595, -1046, -5612, -1308, 6092, 3684, 5844, 3543, 7536, -2671, 374, -5857, 1112, -5832, 611, -3413, 2301, -3888, 2615, -3853, 2641, -3408, 269, 3034, -5434, -4730, -5342, -5243, -4971, -5243, -4875, -5059, -5881, 60, -5870, 494, -5997, 1256, -6516, 1208, -2820, -4825, -2396, -3909, -4285, -251, -791, -3328, -3059, 1161, -3532, 1161, -5920, 1450, -5562, 539, -5520, 762, -5435, 1500, 9135, 5093, -888, 2996, 4751, 4637, 4497, 4684, -4307, 1669, -5312, 1661, -4982, 766, -3999, 1416, -3624, 1390, 689, -3784, 6347, 3850, 6092, 3685, -4555, -4941, -4517, -4724, -4346, -4676, -4292, -4486, -4184, -4318, -3957, -4187, -3933, -3985, -4544, -544, -3762, -3815, 4388, 4792, 1701, 4696, 5925, -2684, 5377, -2816, -2050, 2458, -2980, 1614, -2740, -3883, -4979, -781, -5879, -1591, -6002, -2115, -5977, -2561, -5939, -3367)
@@ -24,6 +30,10 @@ layer_2/name = "Land Decor"
 layer_2/z_index = 2
 layer_2/tile_data = PackedInt32Array(458769, 327680, 4, -655356, 327680, 4, -327679, 327680, 4, -393216, 327680, 4, 458771, 131072, 4, 393240, 393216, 4, 327707, 393216, 4, 917527, 393216, 4, 851988, 393216, 4, 720919, 393216, 4, 786455, 393216, 4, 786456, 458752, 4, 786457, 393216, 4, 786458, 458752, 4, 786459, 393216, 4, 720921, 458752, 4, 917528, 458752, 4, 917531, 458752, 4, 851993, 458752, 4, 851994, 131072, 4, 720925, 458752, 4, 524316, 458752, 4, 524317, 458752, 4, 1114141, 458752, 4, 1048601, 458752, 4, 1048594, 458752, 4, 655381, 458752, 4, 655377, 65536, 3, 851985, 65536, 3, 786462, 65536, 3, 327711, 65536, 3, 917521, 0, 3, 524314, 0, 3, 1048599, 0, 3, 1048600, 65536, 4, 1114143, 131072, 4, 720920, 131072, 4, -393211, 131072, 4, -524285, 131072, 4, -196610, 65536, 4, -786426, 65536, 4, -720896, 0, 4, -655360, 0, 4, 196608, 393216, 5, 262148, 458752, 5, 196612, 393216, 4, -262139, 393216, 4, -458750, 393216, 4, -262145, 458752, 4, -720895, 458752, 4, -589822, 458752, 5, -327680, 458752, 5, -393214, 393216, 5)
 
+[node name="Enemy" parent="." instance=ExtResource("3_4qpc4")]
+position = Vector2(1579, -335)
+ShipData = ExtResource("4_qls21")
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(-511, 728)
 navigation_polygon = SubResource("NavigationPolygon_ahms2")
@@ -39,3 +49,33 @@ vertices = PackedVector2Array(-66, 297, 436, 285, 436, 120, -66, 132)
 [node name="NavigationObstacle2D3" type="NavigationObstacle2D" parent="NavigationRegion2D"]
 position = Vector2(555, -748)
 vertices = PackedVector2Array(-188, -125, 420, -125, 567, -419, 559, -849, -111, -776, -223, -464)
+
+[node name="TradeRoute" parent="." instance=ExtResource("7_agc4o")]
+Faction = ExtResource("8_1dy0o")
+
+[node name="Settlement1" parent="TradeRoute" instance=ExtResource("2_rnebr")]
+position = Vector2(2569, 706)
+rotation = 1.5708
+FactionResource = ExtResource("8_1dy0o")
+MerchantShipData = ExtResource("4_qls21")
+NavyShipData = ExtResource("7_ir0d8")
+
+[node name="Settlement2" parent="TradeRoute" instance=ExtResource("2_rnebr")]
+position = Vector2(4969, 3903)
+FactionResource = ExtResource("8_1dy0o")
+MerchantShipData = ExtResource("4_qls21")
+NavyShipData = ExtResource("7_ir0d8")
+
+[node name="Settlement3" parent="TradeRoute" instance=ExtResource("2_rnebr")]
+position = Vector2(9617, 2633)
+rotation = -1.5708
+FactionResource = ExtResource("8_1dy0o")
+MerchantShipData = ExtResource("4_qls21")
+NavyShipData = ExtResource("7_ir0d8")
+
+[node name="Settlement4" parent="TradeRoute" instance=ExtResource("2_rnebr")]
+position = Vector2(8265, -2578)
+rotation = 3.14159
+FactionResource = ExtResource("8_1dy0o")
+MerchantShipData = ExtResource("4_qls21")
+NavyShipData = ExtResource("7_ir0d8")

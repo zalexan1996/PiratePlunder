@@ -1,7 +1,4 @@
 # Todo List
-- Settlements
-    - Faction specific settlements
-    - Trade for food, cannonballs, and wood
 - Hunger
     - If hunger gets too low, your crew will mutiny
     - Reduce hunger by looting ships and settlements
@@ -14,6 +11,11 @@
 
 
 # Done List
+- Settlements
+    - Faction specific settlements
+    - Lootable Settlements
+    - Settlements attack you
+    - Settlements respawn ships
 - Factions
     - Merchants
     - Navy

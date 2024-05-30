@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://jqqxk27ln5qj"]
+
+[ext_resource type="Script" path="res://Features/Loot/Resources/LootRatioResource.cs" id="1_dajya"]
+
+[resource]
+script = ExtResource("1_dajya")
+Gold = 15.0
+Wood = 0.0
+Food = 4.0
+Cannonball = 2.0
+LootMultiplier = 5.0

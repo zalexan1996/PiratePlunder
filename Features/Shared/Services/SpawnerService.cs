@@ -12,6 +12,9 @@ public partial class SpawnerService : Node
 	[Export]
 	public PackedScene ShockwaveScene { get; set; }
 
+	[Export]
+	public PackedScene EnemyScene { get; set; }
+
 	protected T Spawn<T>(PackedScene scene, Action<T> builder = null) where T : Node2D
 	{
 		var instance = scene.Instantiate<T>();
@@ -50,5 +53,15 @@ public partial class SpawnerService : Node
 
 			builder?.Invoke(s);
 		});
+	}
+
+	public Enemy SpawnEnemy(Vector2 position, ShipData shipData)
+	{
+		var instance = EnemyScene.Instantiate<Enemy>();
+		GetTree().CurrentScene.CallDeferred(MethodName.AddChild, instance);
+		instance.ShipData = shipData;
+		instance.GlobalPosition = position;
+
+		return instance;
 	}
 }

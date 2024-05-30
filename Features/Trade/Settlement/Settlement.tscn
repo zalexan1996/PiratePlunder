@@ -1,0 +1,101 @@
+[gd_scene load_steps=7 format=3 uid="uid://bw7c6nig2kij0"]
+
+[ext_resource type="Script" path="res://Features/Trade/Settlement/Settlement.cs" id="1_8yg82"]
+[ext_resource type="PackedScene" uid="uid://bcqylvf4rotop" path="res://Features/Trade/TradeRoute/TradeRoutePoint.tscn" id="1_j4fg5"]
+[ext_resource type="TileSet" uid="uid://wieicwjhyy2" path="res://Assets/Tilesheets/TileSet_Land.tres" id="1_w05m5"]
+[ext_resource type="PackedScene" uid="uid://cge7kjgpr7t1t" path="res://Features/Trade/Settlement/GroundCannon/GroundCannon.tscn" id="4_2ntsg"]
+[ext_resource type="PackedScene" uid="uid://dc8opw5xv72m2" path="res://Features/Trade/Settlement/LootZone/LootZone.tscn" id="5_hsn6o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lfpol"]
+radius = 1089.29
+
+[node name="Settlement" node_paths=PackedStringArray("Cannons", "FireTimer", "InteractionArea", "LootZone", "RespawnTimer") instance=ExtResource("1_j4fg5")]
+script = ExtResource("1_8yg82")
+FactionResource = null
+Cannons = [NodePath("GroundCannon"), NodePath("GroundCannon2"), NodePath("GroundCannon3"), NodePath("GroundCannon4"), NodePath("GroundCannon5"), NodePath("GroundCannon6"), NodePath("GroundCannon7"), NodePath("GroundCannon8"), NodePath("GroundCannon9"), NodePath("GroundCannon10"), NodePath("GroundCannon11"), NodePath("GroundCannon12"), NodePath("GroundCannon13"), NodePath("GroundCannon14")]
+FireTimer = NodePath("FireTimer")
+InteractionArea = NodePath("InteractionArea")
+LootZone = NodePath("LootZone")
+RespawnTimer = NodePath("RespawnTimer")
+MerchantShipData = null
+NavyShipData = null
+
+[node name="TileMap" type="TileMap" parent="." index="0"]
+position = Vector2(-222, 487)
+tile_set = ExtResource("1_w05m5")
+format = 2
+layer_0/name = "Walls"
+layer_0/tile_data = PackedInt32Array(-65536, 786432, 4, -65535, 983040, 0, -65534, 983040, 0, -65533, 720896, 4, -65532, 983040, 0, -65531, 983040, 0, -65530, 851968, 4, 7, 851968, 4, 65535, 786432, 4, 0, 851968, 5, 131071, 917504, 0, 196607, 917504, 0, 65543, 917504, 0, 131079, 917504, 0, 196615, 917504, 5, 262143, 917504, 5, 327679, 917504, 0, 393215, 917504, 0, 262151, 917504, 0, 327687, 917504, 0, 458751, 786432, 5, 393216, 851968, 4, 458752, 786432, 5, 393223, 851968, 5, 393222, 786432, 4, 458758, 851968, 5, 458755, 720896, 4, 458757, 983040, 0, 458754, 983040, 0, 458753, 983040, 0, 458756, 983040, 0, 6, 786432, 5, -196607, 917504, 4, -262143, 917504, 0, -327679, 917504, 0, -196603, 917504, 4, -262139, 917504, 0, -327675, 917504, 0, -393211, 786432, 2, -393215, 786432, 2, 65546, 786432, 0, 131068, 786432, 0, 589822, 786432, 0, 524296, 786432, 0)
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="TileMap" index="0"]
+position = Vector2(222, 227)
+vertices = PackedVector2Array(-152, -606, -102, -601, -103, -364, -154, -367)
+
+[node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="TileMap" index="1"]
+position = Vector2(222, 227)
+vertices = PackedVector2Array(108, -609, 152, -606, 151, -364, 105, -364)
+
+[node name="FireTimer" type="Timer" parent="." index="1"]
+wait_time = 0.7
+
+[node name="InteractionArea" type="Area2D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" index="0"]
+position = Vector2(0, 717)
+shape = SubResource("CircleShape2D_lfpol")
+
+[node name="LootZone" parent="." index="3" instance=ExtResource("5_hsn6o")]
+visible = false
+position = Vector2(4, 261)
+
+[node name="GroundCannon" parent="." index="4" instance=ExtResource("4_2ntsg")]
+position = Vector2(-190, 459)
+
+[node name="GroundCannon2" parent="." index="5" instance=ExtResource("4_2ntsg")]
+position = Vector2(193, 443)
+
+[node name="GroundCannon3" parent="." index="6" instance=ExtResource("4_2ntsg")]
+position = Vector2(253, 511)
+
+[node name="GroundCannon4" parent="." index="7" instance=ExtResource("4_2ntsg")]
+position = Vector2(449, 575)
+
+[node name="GroundCannon5" parent="." index="8" instance=ExtResource("4_2ntsg")]
+position = Vector2(259, 897)
+
+[node name="GroundCannon6" parent="." index="9" instance=ExtResource("4_2ntsg")]
+position = Vector2(195, 959)
+
+[node name="GroundCannon7" parent="." index="10" instance=ExtResource("4_2ntsg")]
+position = Vector2(325, 1029)
+
+[node name="GroundCannon8" parent="." index="11" instance=ExtResource("4_2ntsg")]
+position = Vector2(-193, 959)
+
+[node name="GroundCannon9" parent="." index="12" instance=ExtResource("4_2ntsg")]
+position = Vector2(-257, 897)
+
+[node name="GroundCannon10" parent="." index="13" instance=ExtResource("4_2ntsg")]
+position = Vector2(-317, 1021)
+
+[node name="GroundCannon11" parent="." index="14" instance=ExtResource("4_2ntsg")]
+position = Vector2(-443, 575)
+
+[node name="GroundCannon12" parent="." index="15" instance=ExtResource("4_2ntsg")]
+position = Vector2(-255, 511)
+
+[node name="GroundCannon13" parent="." index="16" instance=ExtResource("4_2ntsg")]
+position = Vector2(-125, 129)
+
+[node name="GroundCannon14" parent="." index="17" instance=ExtResource("4_2ntsg")]
+position = Vector2(127, 133)
+
+[node name="RespawnTimer" type="Timer" parent="." index="18"]
+wait_time = 60.0
+
+[connection signal="timeout" from="FireTimer" to="." method="onFireTimerTimeout"]
+[connection signal="body_entered" from="InteractionArea" to="." method="onEntityOverlap"]
+[connection signal="body_exited" from="InteractionArea" to="." method="onEntityEndOverlap"]
+[connection signal="timeout" from="RespawnTimer" to="." method="onRespawn"]

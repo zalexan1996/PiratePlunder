@@ -66,7 +66,6 @@ public partial class MerchantAiController : AIController
 
     private void startFlee(IEntity entity)
     {
-        Debug.WriteLine("Start Flee");
         fleeBehavior.StartFlee(entity);
         isFleeing = true;
         isEnteringTradeRoute = false;
@@ -74,7 +73,6 @@ public partial class MerchantAiController : AIController
 
     private void stopFlee(IEntity entity)
     {
-        Debug.WriteLine("Stop Flee");
         fleeBehavior.StopFlee(entity);
         enterTradeRouteBehavior.Reset();
         isFleeing = false;
@@ -88,14 +86,10 @@ public partial class MerchantAiController : AIController
         travelTradeRouteBehavior.CurrentPoint = behavior.TradeRoute.GetNextTradeRoutePoint(behavior.TargetPoint);
         isEnteringTradeRoute = false;
         isTravelingTradeRoute = true;
-
-
-        Debug.WriteLine($"Joined Trade route: {travelTradeRouteBehavior.PreviouslyVisitedPoint.GlobalPosition} | {travelTradeRouteBehavior.CurrentPoint.GlobalPosition}");
     }
 
     private void onTradeRoutePointReached(TravelTradeRouteBehavior behavior)
     {
-        Debug.WriteLine("Traveling Trade Route");
         travelTradeRouteBehavior.PreviouslyVisitedPoint = behavior.CurrentPoint;
         travelTradeRouteBehavior.CurrentPoint = behavior.TradeRoute.GetNextTradeRoutePoint(behavior.CurrentPoint);
     }

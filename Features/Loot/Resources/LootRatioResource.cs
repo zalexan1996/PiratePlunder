@@ -14,5 +14,8 @@ public partial class LootRatioResource : Resource
     [Export]
     public float Cannonball { get; set; }
 
+    [Export]
+    public float LootMultiplier { get; set; } = 1f;
+
     public float Total => Gold + Wood + Food + Cannonball;
 }
