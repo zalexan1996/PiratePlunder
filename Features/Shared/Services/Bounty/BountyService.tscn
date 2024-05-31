@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bisxvrewoo165"]
+
+[ext_resource type="Script" path="res://Features/Shared/Services/Bounty/BountyService.cs" id="1_ymedi"]
+
+[node name="BountyService" type="Node"]
+script = ExtResource("1_ymedi")

@@ -96,6 +96,7 @@ public partial class Enemy : CharacterBody2D, IEntity, IHasMouseOverDisplay
         {
             GetTree().GetAutoLoad().SpawnerService.SpawnWreckage(GlobalPosition, Rotation, ShipData.ShipType.LootRatios);
             GetTree().GetAutoLoad().SpawnerService.SpawnShockwave(GlobalPosition);
+            GetTree().GetAutoLoad().BountyService.ShipDestroyed(ShipData);
             QueueFree();
         }
 

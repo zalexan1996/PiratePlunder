@@ -79,3 +79,19 @@ rotation = 3.14159
 FactionResource = ExtResource("8_1dy0o")
 MerchantShipData = ExtResource("4_qls21")
 NavyShipData = ExtResource("7_ir0d8")
+
+[node name="Enemy2" parent="." instance=ExtResource("3_4qpc4")]
+position = Vector2(914, -626)
+ShipData = ExtResource("7_ir0d8")
+
+[node name="Enemy3" parent="." instance=ExtResource("3_4qpc4")]
+position = Vector2(1346, -70)
+ShipData = ExtResource("7_ir0d8")
+
+[node name="Enemy4" parent="." instance=ExtResource("3_4qpc4")]
+position = Vector2(2528, 964)
+ShipData = ExtResource("7_ir0d8")
+
+[node name="Enemy5" parent="." instance=ExtResource("3_4qpc4")]
+position = Vector2(2685, 417)
+ShipData = ExtResource("7_ir0d8")

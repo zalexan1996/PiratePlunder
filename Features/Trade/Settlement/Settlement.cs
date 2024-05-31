@@ -108,11 +108,16 @@ public partial class Settlement : TradeRoutePoint
 		var destroyedCannon = Cannons.FirstOrDefault(c => !c.Visible);
 		if (destroyedCannon is not null)
 		{
-			destroyedCannon.Visible = true;
+			destroyedCannon.Reset();
 		}
 		// Spawn a ship
 		else
 		{
+			if (LootZone.WasLooted())
+			{
+				LootZone.Reset();
+			}
+
 			var rng = new RandomNumberGenerator();
 			if (rng.RandiRange(0, 10) > 8)
 			{
@@ -122,8 +127,8 @@ public partial class Settlement : TradeRoutePoint
 			{
 				GetTree().GetAutoLoad().SpawnerService.SpawnEnemy(LootZone.GlobalPosition, NavyShipData);
 			}
-
 		}
+
 		
 		RespawnTimer.Start();
 	}
@@ -135,5 +140,7 @@ public partial class Settlement : TradeRoutePoint
 
 		RespawnTimer.Stop();
 		RespawnTimer.Start();
+
+		GetTree().GetAutoLoad().BountyService.SettlementLooted();
 	}
 }

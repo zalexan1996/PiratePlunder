@@ -7,6 +7,9 @@ using Godot;
 
 public partial class Player : CharacterBody2D, IEntity
 {
+    [Signal]
+    public delegate void OnDeathEventHandler();
+
     [Export]
     public ShipData ShipData { get; set; }
 
@@ -75,8 +78,10 @@ public partial class Player : CharacterBody2D, IEntity
         {
             if (InventoryComponent.Wood > 0)
             {
-                HealthComponent.Heal(1 * (float)delta);
-                InventoryComponent.Wood--;
+                var damage = HealthComponent.MaxHealth - HealthComponent.CurrentHealth;
+                var healed = Mathf.Min(InventoryComponent.Wood / 10, damage);
+                HealthComponent.Heal(healed);
+                InventoryComponent.Wood -= (int)healed * 10;
             }
         }
         if (HealthComponent.CurrentHealth <= HealthComponent.MaxHealth / 2f && InventoryComponent.Wood >= 20)
@@ -135,6 +140,7 @@ public partial class Player : CharacterBody2D, IEntity
 		HealthComponent.TakeDamage(1);
         if (HealthComponent.IsDead())
         {
+            EmitSignal(SignalName.OnDeath);
             QueueFree();
         }
 

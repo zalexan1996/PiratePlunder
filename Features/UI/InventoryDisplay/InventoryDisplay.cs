@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class InventoryDisplay : Control
+public partial class InventoryDisplay : PanelContainer
 {
 	[Export]
 	public Player Player { get; set; }

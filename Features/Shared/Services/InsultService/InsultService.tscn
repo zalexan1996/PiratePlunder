@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpe1j6cwlsdp3"]
+
+[ext_resource type="Script" path="res://Features/Shared/Services/InsultService/InsultService.cs" id="1_pt51j"]
+
+[node name="InsultService" type="Node"]
+script = ExtResource("1_pt51j")

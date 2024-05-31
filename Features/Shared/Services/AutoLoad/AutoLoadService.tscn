@@ -1,12 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dibrs66ef24nf"]
+[gd_scene load_steps=5 format=3 uid="uid://dibrs66ef24nf"]
 
 [ext_resource type="Script" path="res://Features/Shared/Services/AutoLoad/AutoLoadService.cs" id="1_ao47y"]
 [ext_resource type="PackedScene" uid="uid://bbmc4v1i352ux" path="res://Features/Shared/Services/SpawnerService.tscn" id="2_5it70"]
-[ext_resource type="PackedScene" uid="uid://ib0j15r3viy7" path="res://Features/Weapons/Cannonball/Cannonball.tscn" id="3_w3hbs"]
+[ext_resource type="PackedScene" uid="uid://bisxvrewoo165" path="res://Features/Shared/Services/Bounty/BountyService.tscn" id="3_ecyy3"]
+[ext_resource type="PackedScene" uid="uid://cpe1j6cwlsdp3" path="res://Features/Shared/Services/InsultService/InsultService.tscn" id="4_4qa74"]
 
-[node name="AutoLoad" type="Node2D" node_paths=PackedStringArray("SpawnerService")]
+[node name="AutoLoad" type="Node2D" node_paths=PackedStringArray("SpawnerService", "BountyService", "InsultService")]
 script = ExtResource("1_ao47y")
 SpawnerService = NodePath("SpawnerService")
+BountyService = NodePath("BountyService")
+InsultService = NodePath("InsultService")
 
 [node name="SpawnerService" parent="." instance=ExtResource("2_5it70")]
-CannonballScene = ExtResource("3_w3hbs")
+
+[node name="BountyService" parent="." instance=ExtResource("3_ecyy3")]
+
+[node name="InsultService" parent="." instance=ExtResource("4_4qa74")]

@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnhwxilugxft8"]
+
+[ext_resource type="Script" path="res://Features/UI/BountyDisplay/BountyDisplay.cs" id="1_06k57"]
+[ext_resource type="Theme" uid="uid://jdodn305aqr6" path="res://Assets/UI/PanelTheme.tres" id="2_og5sn"]
+
+[node name="BountyDisplay" type="PanelContainer" node_paths=PackedStringArray("BountyLabel")]
+offset_right = 132.0
+offset_bottom = 63.0
+theme = ExtResource("2_og5sn")
+script = ExtResource("1_06k57")
+BountyLabel = NodePath("MarginContainer/VBoxContainer/BountyLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Bounty"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BountyLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "$100,000,000"
+horizontal_alignment = 2

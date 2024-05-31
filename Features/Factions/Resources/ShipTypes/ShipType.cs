@@ -13,4 +13,7 @@ public partial class ShipType : Resource
 
     [Export]
     public PackedScene AIControllerScene { get; set; }
+
+    [Export]
+    public int BaseBountyWorth { get; set; } = 100;
 }

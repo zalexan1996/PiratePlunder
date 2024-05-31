@@ -12,11 +12,11 @@ public partial class LootZone : StaticBody2D, IInteractable
 	[Export]
 	public LootRatioResource LootRatios { get; set; }
 
+  private bool wasLooted = false;
     public override void _Ready()
     {
         base._Ready();
-		
-		InventoryComponent.PopulateFromData(LootRatios);
+        Reset();
     }
     public override void _Process(double delta)
     {
@@ -25,19 +25,28 @@ public partial class LootZone : StaticBody2D, IInteractable
 
     public void Interact(IEntity interactor)
     {
-		InventoryComponent.TransferTo(interactor.InventoryComponent);
-		QueueFree();
+      wasLooted = true;
+      InventoryComponent.TransferTo(interactor.InventoryComponent);
+      QueueFree();
     }
 
     public bool CanInteract() => Visible;
 
     public void ShowInteractText()
     {
-		LootLabel.Visible = true;
+		  LootLabel.Visible = true;
     }
 
     public void HideInteractText()
     {
-		LootLabel.Visible = false;
+		  LootLabel.Visible = false;
+    }
+
+    public bool WasLooted() => wasLooted;
+
+    public void Reset()
+    {
+		  InventoryComponent.PopulateFromData(LootRatios);
+      wasLooted = false;
     }
 }

@@ -1,14 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcbrtqxv7utns"]
+[gd_scene load_steps=13 format=3 uid="uid://bcbrtqxv7utns"]
 
 [ext_resource type="PackedScene" uid="uid://bbkty2i1bx21k" path="res://Levels/TestLevel1.tscn" id="1_cru32"]
+[ext_resource type="Script" path="res://Game.cs" id="1_ybki4"]
 [ext_resource type="PackedScene" uid="uid://d2x0c3e01mf6u" path="res://Features/Entities/Player/Player.tscn" id="3_onsmq"]
 [ext_resource type="PackedScene" uid="uid://bmp8eso5aimbq" path="res://Features/Entities/Enemy/Enemy.tscn" id="3_xmmc4"]
+[ext_resource type="Script" path="res://Features/UI/UILayer.cs" id="7_3k5sp"]
 [ext_resource type="PackedScene" uid="uid://ddb0cgtobesxc" path="res://Features/Entities/Ship/Wreckage/Wreckage.tscn" id="7_cbbwk"]
 [ext_resource type="Resource" uid="uid://82lg6xcqm3bs" path="res://Features/Factions/Resources/ShipDatas/SpanishMerchant.tres" id="7_ylhcw"]
+[ext_resource type="PackedScene" uid="uid://dnhwxilugxft8" path="res://Features/UI/BountyDisplay/BountyDisplay.tscn" id="8_4vegq"]
+[ext_resource type="PackedScene" uid="uid://crgj0eqijd2be" path="res://Features/UI/GameOverScreen/GameOverScreen.tscn" id="8_k77fr"]
 [ext_resource type="Resource" uid="uid://d6u1nyngp8x1" path="res://Features/Loot/Resources/LootRatios/PirateLootRatio.tres" id="8_sbfkf"]
 [ext_resource type="PackedScene" uid="uid://c533kcoaw57mu" path="res://Features/UI/InventoryDisplay/InventoryDisplay.tscn" id="9_5c7ot"]
+[ext_resource type="AudioStream" uid="uid://dsgymsvp6kmoi" path="res://Assets/Audio/cool_music.wav" id="12_x46ru"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_ybki4")
 
 [node name="TestLevel1" parent="." instance=ExtResource("1_cru32")]
 
@@ -23,13 +29,26 @@ ShipData = ExtResource("7_ylhcw")
 position = Vector2(502, 30)
 LootRatios = ExtResource("8_sbfkf")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("Player")]
+script = ExtResource("7_3k5sp")
+GameOverScreenScene = ExtResource("8_k77fr")
+Player = NodePath("../Player")
 
-[node name="InventoryDisplay" parent="CanvasLayer" node_paths=PackedStringArray("Player") instance=ExtResource("9_5c7ot")]
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 5.0
-offset_bottom = 5.0
-Player = NodePath("../../Player")
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 174.0
+offset_bottom = 245.0
+
+[node name="InventoryDisplay" parent="CanvasLayer/VBoxContainer" node_paths=PackedStringArray("Player") instance=ExtResource("9_5c7ot")]
+layout_mode = 2
+Player = NodePath("../../../Player")
+
+[node name="BountyDisplay" parent="CanvasLayer/VBoxContainer" instance=ExtResource("8_4vegq")]
+layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_x46ru")
+autoplay = true
 
 [editable path="Player"]
