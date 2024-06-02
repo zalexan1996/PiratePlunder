@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcbrtqxv7utns"]
+[gd_scene load_steps=15 format=3 uid="uid://bcbrtqxv7utns"]
 
 [ext_resource type="PackedScene" uid="uid://bbkty2i1bx21k" path="res://Levels/TestLevel1.tscn" id="1_cru32"]
 [ext_resource type="Script" path="res://Game.cs" id="1_ybki4"]
@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://crgj0eqijd2be" path="res://Features/UI/GameOverScreen/GameOverScreen.tscn" id="8_k77fr"]
 [ext_resource type="Resource" uid="uid://d6u1nyngp8x1" path="res://Features/Loot/Resources/LootRatios/PirateLootRatio.tres" id="8_sbfkf"]
 [ext_resource type="PackedScene" uid="uid://c533kcoaw57mu" path="res://Features/UI/InventoryDisplay/InventoryDisplay.tscn" id="9_5c7ot"]
+[ext_resource type="PackedScene" uid="uid://b6jhv8fgssp1g" path="res://Features/UI/Minimap/Minimap.tscn" id="12_f2kk4"]
 [ext_resource type="AudioStream" uid="uid://dsgymsvp6kmoi" path="res://Assets/Audio/cool_music.wav" id="12_x46ru"]
+[ext_resource type="AudioStream" uid="uid://dmgitus1l6fos" path="res://Assets/Audio/Waves.wav" id="14_wjj17"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_ybki4")
@@ -47,8 +49,23 @@ Player = NodePath("../../../Player")
 [node name="BountyDisplay" parent="CanvasLayer/VBoxContainer" instance=ExtResource("8_4vegq")]
 layout_mode = 2
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Minimap" parent="CanvasLayer" node_paths=PackedStringArray("Player") instance=ExtResource("12_f2kk4")]
+layout_direction = 3
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+Player = NodePath("../../Player")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_x46ru")
+volume_db = -5.0
+autoplay = true
+
+[node name="Waves" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_wjj17")
+volume_db = -20.0
 autoplay = true
 
 [editable path="Player"]

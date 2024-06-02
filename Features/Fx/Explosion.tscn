@@ -135,9 +135,10 @@ shape = SubResource("CircleShape2D_waavn")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_tjjem")
+volume_db = -10.0
 autoplay = true
 max_distance = 1500.0
-attenuation = 1.56917
+attenuation = 1.31951
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.793409, 0.468089, 1.92523e-07, 1)
