@@ -20,8 +20,9 @@ public partial class GroundCannon : CharacterBody2D, IEntity
 
     public bool IsHostileWith(IEntity entity) => !entity.IsInFaction(FactionResource);
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, IEntity dealer)
     {
+		GetTree().GetAutoLoad().BountyService.GroundCannonDestroyed(dealer);
 		GetTree().GetAutoLoad().SpawnerService.SpawnShockwave(GlobalPosition);
 		Visible = false;
 		CollisionShape2D.SetDeferred(CollisionShape2D.PropertyName.Disabled, true);

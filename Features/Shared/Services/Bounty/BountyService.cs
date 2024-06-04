@@ -12,18 +12,31 @@ public partial class BountyService : Node
         Bounty = 0;
     }
     
-    public void ShipDestroyed(ShipData data)
+    public void ShipDestroyed(ShipData data, IEntity dealer)
     {
-        Bounty += data.ShipType.BaseBountyWorth;
-        Bounty += (int)data.ShipType.LootRatios.Gold * 10;
+        if (dealer.GetFaction().FactionId == "X")
+        {
+            Bounty += data.ShipType.BaseBountyWorth;
+            Bounty += (int)data.ShipType.LootRatios.Gold * 10;
 
-        EmitSignal(SignalName.BountyUpdated, Bounty);
+            EmitSignal(SignalName.BountyUpdated, Bounty);
+        }
     }
 
     public void SettlementLooted()
     {
         Bounty += 1000;
         EmitSignal(SignalName.BountyUpdated, Bounty);
+    }
+
+    public void GroundCannonDestroyed(IEntity dealer)
+    {
+        if (dealer.GetFaction().FactionId == "X")
+        {
+            
+            Bounty += 50;
+            EmitSignal(SignalName.BountyUpdated, Bounty);
+        }
     }
 
     public int GetHighestBounty()

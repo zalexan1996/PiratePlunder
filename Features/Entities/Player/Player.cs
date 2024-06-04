@@ -135,7 +135,7 @@ public partial class Player : CharacterBody2D, IEntity
     {
         Ship.Fire();
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, IEntity dealer)
     {
 		HealthComponent.TakeDamage(1);
         if (HealthComponent.IsDead())

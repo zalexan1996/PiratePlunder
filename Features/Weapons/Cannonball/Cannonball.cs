@@ -70,7 +70,7 @@ public partial class Cannonball : Area2D
 			return;
 		}
 
-		damageableBody.TakeDamage(1);
+		damageableBody.TakeDamage(1, Owner as IEntity);
 		explode();
 	}
 }

@@ -89,14 +89,14 @@ public partial class Enemy : CharacterBody2D, IEntity, IHasMouseOverDisplay
 
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, IEntity dealer)
     {
 		HealthComponent.TakeDamage(1);
         if (HealthComponent.IsDead())
         {
             GetTree().GetAutoLoad().SpawnerService.SpawnWreckage(GlobalPosition, Rotation, ShipData.ShipType.LootRatios);
             GetTree().GetAutoLoad().SpawnerService.SpawnShockwave(GlobalPosition);
-            GetTree().GetAutoLoad().BountyService.ShipDestroyed(ShipData);
+            GetTree().GetAutoLoad().BountyService.ShipDestroyed(ShipData, dealer);
             QueueFree();
         }
 

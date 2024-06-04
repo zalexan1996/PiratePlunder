@@ -18,7 +18,7 @@ public partial class Guy : CharacterBody2D, IEntity
     public FactionResource GetFaction() => FactionComponent.Faction;
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, IEntity dealer)
     {
 		HealthComponent.TakeDamage(1);
         if (HealthComponent.IsDead())
