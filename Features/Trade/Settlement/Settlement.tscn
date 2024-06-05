@@ -54,46 +54,46 @@ visible = false
 position = Vector2(4, 261)
 
 [node name="GroundCannon" parent="." index="4" instance=ExtResource("4_2ntsg")]
-position = Vector2(-190, 459)
+position = Vector2(-190, 454)
 
 [node name="GroundCannon2" parent="." index="5" instance=ExtResource("4_2ntsg")]
-position = Vector2(193, 443)
+position = Vector2(194, 455)
 
 [node name="GroundCannon3" parent="." index="6" instance=ExtResource("4_2ntsg")]
-position = Vector2(253, 511)
+position = Vector2(258, 518)
 
 [node name="GroundCannon4" parent="." index="7" instance=ExtResource("4_2ntsg")]
-position = Vector2(449, 575)
+position = Vector2(450, 583)
 
 [node name="GroundCannon5" parent="." index="8" instance=ExtResource("4_2ntsg")]
-position = Vector2(259, 897)
+position = Vector2(259, 904)
 
 [node name="GroundCannon6" parent="." index="9" instance=ExtResource("4_2ntsg")]
-position = Vector2(195, 959)
+position = Vector2(194, 967)
 
 [node name="GroundCannon7" parent="." index="10" instance=ExtResource("4_2ntsg")]
-position = Vector2(325, 1029)
+position = Vector2(322, 1033)
 
 [node name="GroundCannon8" parent="." index="11" instance=ExtResource("4_2ntsg")]
-position = Vector2(-193, 959)
+position = Vector2(-191, 968)
 
 [node name="GroundCannon9" parent="." index="12" instance=ExtResource("4_2ntsg")]
-position = Vector2(-257, 897)
+position = Vector2(-255, 904)
 
 [node name="GroundCannon10" parent="." index="13" instance=ExtResource("4_2ntsg")]
-position = Vector2(-317, 1021)
+position = Vector2(-318, 1030)
 
 [node name="GroundCannon11" parent="." index="14" instance=ExtResource("4_2ntsg")]
-position = Vector2(-443, 575)
+position = Vector2(-446, 583)
 
 [node name="GroundCannon12" parent="." index="15" instance=ExtResource("4_2ntsg")]
-position = Vector2(-255, 511)
+position = Vector2(-255, 519)
 
 [node name="GroundCannon13" parent="." index="16" instance=ExtResource("4_2ntsg")]
-position = Vector2(-125, 129)
+position = Vector2(-126, 134)
 
 [node name="GroundCannon14" parent="." index="17" instance=ExtResource("4_2ntsg")]
-position = Vector2(127, 133)
+position = Vector2(130, 134)
 
 [node name="RespawnTimer" type="Timer" parent="." index="18"]
 wait_time = 30.0

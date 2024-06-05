@@ -16,7 +16,8 @@ CollisionShape2D = NodePath("CollisionShape2D")
 Cannon = NodePath("Cannon")
 
 [node name="Cannon" parent="." instance=ExtResource("1_pykfk")]
+position = Vector2(0, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
+position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_w16fc")

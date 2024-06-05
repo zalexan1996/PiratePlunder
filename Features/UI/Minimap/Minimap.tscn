@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6jhv8fgssp1g"]
+[gd_scene load_steps=6 format=3 uid="uid://b6jhv8fgssp1g"]
 
 [ext_resource type="PackedScene" uid="uid://cwut4vk6sge6a" path="res://Levels/TestLevel1_Map.tscn" id="1_8sdkc"]
 [ext_resource type="Script" path="res://Features/UI/Minimap/Minimap.cs" id="1_vipo7"]
 [ext_resource type="Texture2D" uid="uid://bwep2al4fvp2s" path="res://Assets/UI/crosshairs_tilesheet_white.png" id="2_ly3nc"]
+[ext_resource type="Theme" uid="uid://jdodn305aqr6" path="res://Assets/UI/PanelTheme.tres" id="4_oiv2m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v05r"]
 bg_color = Color(0.296466, 0.205694, 0.114607, 1)
@@ -13,7 +14,7 @@ border_width_bottom = 7
 border_color = Color(0.132275, 0.0851697, 0.0427067, 1)
 border_blend = true
 
-[node name="Minimap" type="Control" node_paths=PackedStringArray("Sprite2D")]
+[node name="Minimap" type="Control" node_paths=PackedStringArray("Sprite2D", "MinimapPanel", "ToggleLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,15 +22,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vipo7")
-Sprite2D = NodePath("Background/MarginContainer/SubViewportContainer/SubViewport/TileMap/PlayerMarker")
+Sprite2D = NodePath("MinimapPanel/MarginContainer/SubViewportContainer/SubViewport/TileMap/PlayerMarker")
+MinimapPanel = NodePath("MinimapPanel")
+ToggleLabel = NodePath("ToggleLabel")
 
-[node name="Background" type="Panel" parent="."]
+[node name="MinimapPanel" type="Panel" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 300.0
 offset_bottom = 150.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2v05r")
 
-[node name="MarginContainer" type="MarginContainer" parent="Background"]
+[node name="MarginContainer" type="MarginContainer" parent="MinimapPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,27 +45,27 @@ theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 7
 theme_override_constants/margin_bottom = 7
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Background/MarginContainer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MinimapPanel/MarginContainer"]
 layout_mode = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="Background/MarginContainer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="MinimapPanel/MarginContainer/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(2, 2)
-render_target_update_mode = 4
+size = Vector2i(286, 136)
+render_target_update_mode = 0
 
-[node name="TileMap" parent="Background/MarginContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_8sdkc")]
+[node name="TileMap" parent="MinimapPanel/MarginContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_8sdkc")]
 position = Vector2(140, 65)
 scale = Vector2(0.011, 0.011)
 
-[node name="PlayerMarker" type="Sprite2D" parent="Background/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
+[node name="PlayerMarker" type="Sprite2D" parent="MinimapPanel/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
 self_modulate = Color(0, 0.623529, 0.137255, 1)
 scale = Vector2(80, 80)
 texture = ExtResource("2_ly3nc")
 hframes = 20
 vframes = 10
 
-[node name="SpainSettlement1" type="Sprite2D" parent="Background/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
+[node name="SpainSettlement1" type="Sprite2D" parent="MinimapPanel/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
 self_modulate = Color(0.533333, 0, 0, 1)
 position = Vector2(2000, 706)
 scale = Vector2(40, 40)
@@ -70,7 +74,7 @@ hframes = 20
 vframes = 10
 frame = 4
 
-[node name="SpainSettlement2" type="Sprite2D" parent="Background/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
+[node name="SpainSettlement2" type="Sprite2D" parent="MinimapPanel/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
 self_modulate = Color(0.533333, 0, 0, 1)
 position = Vector2(4969, 4600)
 scale = Vector2(40, 40)
@@ -79,7 +83,7 @@ hframes = 20
 vframes = 10
 frame = 4
 
-[node name="SpainSettlement3" type="Sprite2D" parent="Background/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
+[node name="SpainSettlement3" type="Sprite2D" parent="MinimapPanel/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
 self_modulate = Color(0.533333, 0, 0, 1)
 position = Vector2(10300, 2633)
 scale = Vector2(40, 40)
@@ -88,7 +92,7 @@ hframes = 20
 vframes = 10
 frame = 4
 
-[node name="SpainSettlement4" type="Sprite2D" parent="Background/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
+[node name="SpainSettlement4" type="Sprite2D" parent="MinimapPanel/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
 self_modulate = Color(0.533333, 0, 0, 1)
 position = Vector2(8265, -3200)
 scale = Vector2(40, 40)
@@ -97,7 +101,7 @@ hframes = 20
 vframes = 10
 frame = 4
 
-[node name="EnglishSettlement1" type="Sprite2D" parent="Background/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
+[node name="EnglishSettlement1" type="Sprite2D" parent="MinimapPanel/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
 self_modulate = Color(0, 0.439216, 0.803922, 1)
 position = Vector2(200, -500)
 scale = Vector2(40, 40)
@@ -106,7 +110,7 @@ hframes = 20
 vframes = 10
 frame = 4
 
-[node name="EnglishSettlement2" type="Sprite2D" parent="Background/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
+[node name="EnglishSettlement2" type="Sprite2D" parent="MinimapPanel/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
 self_modulate = Color(0, 0.439216, 0.803922, 1)
 position = Vector2(2600, -3004)
 scale = Vector2(40, 40)
@@ -115,7 +119,7 @@ hframes = 20
 vframes = 10
 frame = 4
 
-[node name="EnglishSettlement3" type="Sprite2D" parent="Background/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
+[node name="EnglishSettlement3" type="Sprite2D" parent="MinimapPanel/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
 self_modulate = Color(0, 0.439216, 0.803922, 1)
 position = Vector2(-3529, -3500)
 scale = Vector2(40, 40)
@@ -124,7 +128,7 @@ hframes = 20
 vframes = 10
 frame = 4
 
-[node name="PirateSettlement1" type="Sprite2D" parent="Background/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
+[node name="PirateSettlement1" type="Sprite2D" parent="MinimapPanel/MarginContainer/SubViewportContainer/SubViewport/TileMap"]
 self_modulate = Color(0, 0, 0, 1)
 position = Vector2(-5800, 893)
 scale = Vector2(40, 40)
@@ -132,3 +136,11 @@ texture = ExtResource("2_ly3nc")
 hframes = 20
 vframes = 10
 frame = 4
+
+[node name="ToggleLabel" type="Label" parent="."]
+layout_mode = 1
+offset_right = 348.0
+offset_bottom = 26.0
+theme = ExtResource("4_oiv2m")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Press 'Tab' to toggle the minimap"
