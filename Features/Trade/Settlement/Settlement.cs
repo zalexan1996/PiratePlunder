@@ -141,13 +141,14 @@ public partial class Settlement : TradeRoutePoint
 			}
 
 			var rng = new RandomNumberGenerator();
-			if (rng.RandiRange(0, 10) >-1)
+			if (rng.RandiRange(0, 10) < 5)
 			{
 				GetTree().GetAutoLoad().SpawnerService.SpawnEnemy(LootZone.GlobalPosition, MerchantShipData);
 			}
 			else
 			{
-				GetTree().GetAutoLoad().SpawnerService.SpawnEnemy(LootZone.GlobalPosition, NavyShipData);
+				var enemy =GetTree().GetAutoLoad().SpawnerService.SpawnEnemy(LootZone.GlobalPosition, NavyShipData);
+				(enemy.AIController as ViolentAiController).guardBehavior.Guards = this;
 			}
 		}
 		

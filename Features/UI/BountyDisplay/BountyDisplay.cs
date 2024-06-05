@@ -27,7 +27,6 @@ public partial class BountyDisplay : PanelContainer
 
     public override void _ExitTree()
     {
-		Debug.WriteLine("Exitinng Tree");
 		BountyService.BountyUpdated -= onBountyUpdated;
         base._ExitTree();
     }

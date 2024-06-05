@@ -148,7 +148,6 @@ public partial class Player : CharacterBody2D, IEntity
 
     private void onInteractionAreaBodyEntered(Node2D node)
     {
-        Debug.WriteLine("Enter");
         var interactable = node as IInteractable;
 
         if (interactable is not null && !interactablesInRange.Contains(interactable))

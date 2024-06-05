@@ -34,6 +34,7 @@ navigation_polygon = SubResource("NavigationPolygon_ahms2")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="NavigationRegion2D"]
 position = Vector2(513, -705)
+radius = 10.0
 vertices = PackedVector2Array(976, 323, 1484, 323, 1490, 208, 2150, 189, 2157, 1155, 2030, 1199, 925, 1205)
 
 [node name="NavigationObstacle2D2" type="NavigationObstacle2D" parent="NavigationRegion2D"]
@@ -48,7 +49,7 @@ vertices = PackedVector2Array(-188, -125, 420, -125, 567, -419, 559, -849, -111,
 Faction = ExtResource("8_1dy0o")
 
 [node name="Settlement1" parent="TradeRoute_Spain" instance=ExtResource("2_rnebr")]
-position = Vector2(2569, 706)
+position = Vector2(2601, 708)
 rotation = 1.5708
 FactionResource = ExtResource("8_1dy0o")
 MerchantShipData = ExtResource("4_qls21")

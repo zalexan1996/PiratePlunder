@@ -4,22 +4,45 @@ using Godot;
 
 public partial class ViolentAiController : AIController
 {
-    private PursueBehavior behavior;
+    private PursueBehavior pursueBehavior;
+    public GuardBehavior guardBehavior;
 
     public override void _Ready()
     {
-        behavior = new PursueBehavior()
+        pursueBehavior = new PursueBehavior()
         {
             Controls = Controls,
             Target = Target
         };
 
-        Controls.ProximityDetectionComponent.EntityDetected += behavior.StartFollow;
-        Controls.ProximityDetectionComponent.EntityLeft += behavior.StopFollow;
+        guardBehavior = new GuardBehavior()
+        {
+            Controls = Controls,
+        };
+
+        Controls.ProximityDetectionComponent.EntityDetected += startFollow;
+        Controls.ProximityDetectionComponent.EntityLeft += stopFollow;
     }
 
-    public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
     {
-        behavior.Execute();
+        base._Process(delta);
+        if (pursueBehavior.Target is null)
+        {
+            guardBehavior.Execute();
+        }
+        else
+        {
+            pursueBehavior.Execute();
+        }
+    }
+
+    private void startFollow(IEntity entity)
+    {
+        pursueBehavior.StartFollow(entity);
+    }
+    private void stopFollow(IEntity entity)
+    {
+        pursueBehavior.StopFollow(entity);
     }
 }

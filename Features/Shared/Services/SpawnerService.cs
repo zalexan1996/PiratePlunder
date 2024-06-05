@@ -55,13 +55,15 @@ public partial class SpawnerService : Node
 		});
 	}
 
-	public Enemy SpawnEnemy(Vector2 position, ShipData shipData)
+	public Enemy SpawnEnemy(Vector2 position, ShipData shipData, Action<Enemy> builder = null)
 	{
 		var instance = EnemyScene.Instantiate<Enemy>();
-		GetTree().CurrentScene.CallDeferred(MethodName.AddChild, instance);
+		// GetTree().CurrentScene.CallDeferred(MethodName.AddChild, instance);
 		instance.ShipData = shipData;
 		instance.GlobalPosition = position;
+		GetTree().CurrentScene.AddChild(instance);
 
+		builder?.Invoke(instance);
 		return instance;
 	}
 }
