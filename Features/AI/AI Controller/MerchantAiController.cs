@@ -16,6 +16,7 @@ public partial class MerchantAiController : AIController
     public override void _Ready()
     {
         base._Ready();
+        //Debug.WriteLine($"MerchantAIController:{Controls.Name} - Ready");
 
         Controls.ProximityDetectionComponent.EntityDetected += startFlee;
         Controls.ProximityDetectionComponent.EntityLeft += stopFlee;
@@ -41,9 +42,10 @@ public partial class MerchantAiController : AIController
         travelTradeRouteBehavior.TradeRoutePointReached += onTradeRoutePointReached;
     }
 
-    public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
     {
-        base._PhysicsProcess(delta);
+        base._Process(delta);
+        //Debug.WriteLine($"MerchantAIController:{Controls.Name} - _Process");
 
         if (isFleeing)
         {
