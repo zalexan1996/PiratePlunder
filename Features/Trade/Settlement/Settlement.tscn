@@ -10,6 +10,7 @@
 radius = 1089.29
 
 [node name="Settlement" node_paths=PackedStringArray("Cannons", "FireTimer", "InteractionArea", "LootZone", "RespawnTimer") instance=ExtResource("1_j4fg5")]
+z_index = 2
 script = ExtResource("1_8yg82")
 FactionResource = null
 Cannons = [NodePath("GroundCannon"), NodePath("GroundCannon2"), NodePath("GroundCannon3"), NodePath("GroundCannon4"), NodePath("GroundCannon5"), NodePath("GroundCannon6"), NodePath("GroundCannon7"), NodePath("GroundCannon8"), NodePath("GroundCannon9"), NodePath("GroundCannon10"), NodePath("GroundCannon11"), NodePath("GroundCannon12"), NodePath("GroundCannon13"), NodePath("GroundCannon14")]

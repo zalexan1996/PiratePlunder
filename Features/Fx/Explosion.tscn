@@ -115,6 +115,7 @@ _data = {
 }
 
 [node name="Explosion" type="Node2D" node_paths=PackedStringArray("AnimatedSprite2D")]
+z_index = 4
 script = ExtResource("1_ldama")
 AnimatedSprite2D = NodePath("AnimatedSprite2D")
 

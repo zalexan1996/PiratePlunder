@@ -347,7 +347,7 @@ _data = {
 }
 
 [node name="Shockwave" type="Node2D" node_paths=PackedStringArray("Explosion", "Smoke")]
-z_index = 1
+z_index = 4
 script = ExtResource("1_grtvl")
 Explosion = NodePath("Explosion")
 Smoke = NodePath("Smoke")
