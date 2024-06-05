@@ -45,7 +45,7 @@ shape = SubResource("CapsuleShape2D_gda4w")
 [node name="Ship" parent="." instance=ExtResource("1_u33io")]
 
 [node name="Camera2D" type="Camera2D" parent="Ship"]
-zoom = Vector2(0.75, 0.75)
+zoom = Vector2(0.6, 0.6)
 
 [node name="HealthDisplayPoint" type="Node2D" parent="."]
 

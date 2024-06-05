@@ -1,6 +1,8 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class Settlement : TradeRoutePoint
@@ -29,6 +31,8 @@ public partial class Settlement : TradeRoutePoint
 	[Export]
 	public ShipData NavyShipData { get; set; }
 
+	private IList<IEntity> Targets = new List<IEntity>();
+
     public override void _Ready()
     {
 		foreach(var cannon in Cannons)
@@ -40,29 +44,38 @@ public partial class Settlement : TradeRoutePoint
 		RespawnTimer.Start();
     }
 
-    private IEntity Target = null;
 
     public override void _Process(double delta)
     {
         base._Process(delta);
 
-		if (Target is null)
+		if (!Targets.Any())
 		{
 			return;
 		}
 
 		foreach (var cannon in Cannons)
 		{
-			cannon.Rotation = (Target.GlobalPosition - cannon.GlobalPosition).Rotated(-Rotation).Angle() - Mathf.Pi / 2;
+			cannon.Rotation = (Targets.First().GlobalPosition - cannon.GlobalPosition).Rotated(-Rotation).Angle() - Mathf.Pi / 2;
 		}
     }
 
     private void onEntityOverlap(Node2D body)
 	{
 		var entity = body as IEntity;
-		if (entity is not null && !entity.IsInFaction(FactionResource) && Cannons.Count > 0)
+		if (entity is null)
 		{
-			Target = entity;
+			return;
+		}
+
+
+		if (!entity.IsInFaction(FactionResource) && Cannons.Count > 0)
+		{
+			if (!Targets.Contains(entity))
+			{
+				Targets = Targets.Append(entity).ToList();
+			}
+
 			FireTimer.Start(1 / Cannons.Count);
 		}
 	}
@@ -70,9 +83,18 @@ public partial class Settlement : TradeRoutePoint
 	private void onEntityEndOverlap(Node2D body)
 	{
 		var entity = body as IEntity;
-		if (entity is not null && entity == Target)
+		if (entity is null)
 		{
-			Target = null;
+			return;
+		}
+
+		if (Targets.Contains(entity))
+		{
+			Targets.Remove(entity);
+		}
+
+		if (!Targets.Any())
+		{
 			FireTimer.Stop();
 		}
 	}
@@ -80,7 +102,7 @@ public partial class Settlement : TradeRoutePoint
 	private void onFireTimerTimeout()
 	{
 		var availableCannons = Cannons.Where(c => c.Visible).ToList();
-		if (Target is null || !availableCannons.Any())
+		if (!Targets.Any() || !availableCannons.Any())
 		{
 			return;
 		}
@@ -90,7 +112,7 @@ public partial class Settlement : TradeRoutePoint
 		
 		var randomCannon = availableCannons[i];
 
-		randomCannon.Cannon.Fire(Target.GlobalPosition, Vector2.Zero, randomCannon);
+		randomCannon.Cannon.Fire(Targets.First().GlobalPosition, Vector2.Zero, randomCannon);
 		FireTimer.Start( 1 / Cannons.Count);
 	}
 
@@ -119,7 +141,7 @@ public partial class Settlement : TradeRoutePoint
 			}
 
 			var rng = new RandomNumberGenerator();
-			if (rng.RandiRange(0, 10) > 8)
+			if (rng.RandiRange(0, 10) >-1)
 			{
 				GetTree().GetAutoLoad().SpawnerService.SpawnEnemy(LootZone.GlobalPosition, MerchantShipData);
 			}
@@ -128,6 +150,7 @@ public partial class Settlement : TradeRoutePoint
 				GetTree().GetAutoLoad().SpawnerService.SpawnEnemy(LootZone.GlobalPosition, NavyShipData);
 			}
 		}
+		
 
 		
 		RespawnTimer.Start();

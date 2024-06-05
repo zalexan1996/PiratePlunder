@@ -21,7 +21,7 @@ script = ExtResource("1_ybki4")
 [node name="TestLevel1" parent="." instance=ExtResource("1_cru32")]
 
 [node name="Player" parent="." instance=ExtResource("3_onsmq")]
-position = Vector2(750, -43)
+position = Vector2(21, 825)
 
 [node name="Enemy3" parent="." instance=ExtResource("3_xmmc4")]
 position = Vector2(2643, -1105)

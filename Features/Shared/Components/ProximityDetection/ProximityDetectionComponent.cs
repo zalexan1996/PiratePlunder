@@ -45,7 +45,6 @@ public partial class ProximityDetectionComponent : Area2D
 		}
 
 		EntityDetected?.Invoke(entity);
-		Debug.WriteLine("Body entiter");
 
 		if (!EntitiesInProximity.Contains(entity))
 		{

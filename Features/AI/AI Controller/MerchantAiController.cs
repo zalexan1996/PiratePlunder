@@ -3,11 +3,6 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 
-/*
-Merchant AI rules
-
-If there is a 
-*/
 public partial class MerchantAiController : AIController
 {
 	private FleeBehavior fleeBehavior = null;
