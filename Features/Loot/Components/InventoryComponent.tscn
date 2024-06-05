@@ -5,7 +5,7 @@
 
 [node name="InventoryComponent" type="Node" node_paths=PackedStringArray("CoinPlayer")]
 script = ExtResource("1_rlokk")
-CoinPlayer = NodePath("AudioStreamPlayer2D")
+CoinPlayer = NodePath("AudioStreamPlayer")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_tiq1n")

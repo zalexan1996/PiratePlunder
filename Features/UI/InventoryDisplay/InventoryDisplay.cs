@@ -7,12 +7,6 @@ public partial class InventoryDisplay : PanelContainer
 	public Player Player { get; set; }
 
 	[Export]
-	public Label CannonballLabel { get; set; }
-
-	[Export]
-	public Label FoodLabel { get; set; }
-
-	[Export]
 	public Label WoodLabel { get; set; }
 
 	[Export]
@@ -25,8 +19,6 @@ public partial class InventoryDisplay : PanelContainer
 
 	private void onInventoryChanged(int cannonballs, int food, int wood, int gold)
 	{
-		CannonballLabel.Text = cannonballs.ToString();
-		FoodLabel.Text = food.ToString();
 		WoodLabel.Text = wood.ToString();
 		MoneyLabel.Text = "$" + gold.ToString();
 	}
