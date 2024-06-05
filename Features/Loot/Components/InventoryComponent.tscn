@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://ladkelwr2eu0"]
+[gd_scene load_steps=3 format=3 uid="uid://ladkelwr2eu0"]
 
 [ext_resource type="Script" path="res://Features/Loot/Components/InventoryComponent.cs" id="1_rlokk"]
+[ext_resource type="AudioStream" uid="uid://dgk08s5ikxlol" path="res://Assets/Audio/Coins.wav" id="2_tiq1n"]
 
-[node name="InventoryComponent" type="Node"]
+[node name="InventoryComponent" type="Node" node_paths=PackedStringArray("CoinPlayer")]
 script = ExtResource("1_rlokk")
+CoinPlayer = NodePath("AudioStreamPlayer2D")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_tiq1n")

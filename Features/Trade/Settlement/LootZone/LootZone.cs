@@ -27,6 +27,7 @@ public partial class LootZone : StaticBody2D, IInteractable
     {
       wasLooted = true;
       InventoryComponent.TransferTo(interactor.InventoryComponent);
+      interactor.InventoryComponent.PlaySound();
       QueueFree();
     }
 

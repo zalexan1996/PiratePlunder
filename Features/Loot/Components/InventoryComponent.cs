@@ -7,6 +7,9 @@ public partial class InventoryComponent : Node
 	public delegate void InventoryChangedEventHandler(int cannonballs, int food, int wood, int gold);
 
 	[Export]
+	public AudioStreamPlayer2D CoinPlayer { get; set; }
+
+	[Export]
 	public int Cannonballs { get; set; } = 0;
 	
 	[Export]
@@ -74,5 +77,11 @@ public partial class InventoryComponent : Node
 		Debug.WriteLine($"Food: {Food}");
 		Debug.WriteLine($"Wood: {Wood}");
 		Debug.WriteLine($"Gold: {Gold}");
+	}
+
+	public void PlaySound()
+	{
+		Debug.WriteLine("PlaySound");
+		CoinPlayer.Play();
 	}
 }

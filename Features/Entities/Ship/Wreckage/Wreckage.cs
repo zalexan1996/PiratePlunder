@@ -52,6 +52,7 @@ public partial class Wreckage : StaticBody2D, IInteractable
     public void Interact(IEntity interactor)
     {
 		InventoryComponent.TransferTo(interactor.InventoryComponent);
+		interactor.InventoryComponent.PlaySound();
 		QueueFree();
     }
 
